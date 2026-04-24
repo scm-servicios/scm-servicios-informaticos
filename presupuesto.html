@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solicitar Cotización — SCM Servicios Informáticos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <!-- jsPDF para generar PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    :root {
+      --navy:     #0d1b2a;
+      --navy-mid: #1a3a6b;
+      --cyan:     #00c8ff;
+      --cyan-d:   #009fcb;
+      --white:    #ffffff;
+      --gray-bg:  #f0f4f8;
+      --gray-ln:  #e2e8f0;
+      --text-d:   #1a202c;
+      --text-m:   #4a5568;
+      --green:    #25d366;
+      --red:      #e63946;
+      --font:     'Poppins', sans-serif;
+      --radius:   14px;
+      --shadow:   0 4px 24px rgba(0,0,0,0.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--gray-bg);
+      color: var(--text-d);
+      min-height: 100vh;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--navy);
+      border-bottom: 3px solid var(--cyan);
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 12px; }
+    .topbar-brand img {
+      width: 80px; height: 80px;
+      object-fit: contain;
+      border-radius: 10px;
+      filter: drop-shadow(0 2px 12px rgba(0,200,255,0.5));
+    }
+    .topbar-brand-txt { font-size: 1rem; font-weight: 700; color: var(--white); line-height: 1.2; }
+    .topbar-brand-txt span { color: var(--cyan); }
+    .topbar-brand-sub { font-size: 0.68rem; color: rgba(255,255,255,0.45); font-weight: 400; display: block; margin-top: 1px; }
+    .topbar-actions { display: flex; gap: 9px; flex-wrap: wrap; }
+    .tb-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 20px; border-radius: 50px;
+      font-family: var(--font); font-size: 0.82rem; font-weight: 700;
+      cursor: pointer; border: none; transition: all 0.25s; white-space: nowrap;
+    }
+    .tb-btn-back { background: transparent; color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.2); }
+    .tb-btn-back:hover { color: var(--white); border-color: var(--white); }
+
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, #0a2040 60%, #0d1b2a 100%);
+      padding: 48px 24px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,200,255,0.08) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(0,200,255,0.12); border: 1px solid rgba(0,200,255,0.3);
+      color: var(--cyan); padding: 6px 18px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 18px;
+    }
+    .hero-banner h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; color: var(--white); margin-bottom: 10px; position: relative; }
+    .hero-banner h1 span { color: var(--cyan); }
+    .hero-banner p { font-size: 1rem; color: rgba(255,255,255,0.72); max-width: 560px; margin: 0 auto 20px; position: relative; line-height: 1.6; }
+    .hero-steps {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0; flex-wrap: wrap; position: relative; margin-top: 10px;
+    }
+    .step-item {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(0,200,255,0.2);
+      padding: 8px 16px; border-radius: 50px; margin: 4px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.8); font-weight: 500;
+    }
+    .step-item i { color: var(--cyan); font-size: 0.85rem; }
+
+    /* ── PAGE WRAP ── */
+    .page-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-ln);
+      overflow: hidden;
+    }
+    .card-head {
+      background: var(--navy);
+      padding: 14px 22px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-head .ch-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(0,200,255,0.15); border: 1px solid rgba(0,200,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan); font-size: 0.9rem; flex-shrink: 0;
+    }
+    .card-head h3 { font-size: 0.9rem; font-weight: 700; color: var(--white); }
+    .card-head p { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 1px; }
+    .card-body { padding: 22px; }
+
+    /* ── FORM ── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-row.one { grid-template-columns: 1fr; }
+    .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
+    .fg { display: flex; flex-direction: column; gap: 5px; }
+    .fg label { font-size: 0.72rem; font-weight: 700; color: var(--text-m); text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 5px; }
+    .fg label i { color: var(--cyan); font-size: 0.68rem; }
+    .fg label .req { color: var(--red); font-size: 0.75em; }
+    .fg input, .fg select, .fg textarea {
+      width: 100%; border: 2px solid var(--gray-ln);
+      border-radius: 10px; padding: 11px 14px;
+      font-family: var(--font); font-size: 0.88rem;
+      color: var(--text-d); background: var(--white);
+      transition: all 0.2s; outline: none;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 4px rgba(0,200,255,0.1);
+    }
+    .fg input.error, .fg select.error, .fg textarea.error {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(230,57,70,0.1);
+    }
+    .fg textarea { resize: vertical; min-height: 90px; }
+    .fg .hint { font-size: 0.68rem; color: var(--text-m); font-style: italic; }
+
+    /* ── ITEMS ── */
+    .items-header {
+      display: grid; grid-template-columns: 3fr 0.7fr 1.3fr 1.3fr 40px;
+      gap: 8px; padding: 8px 10px;
+      background: var(--gray-bg); border-radius: 8px; margin-bottom: 10px;
+      font-size: 0.68rem; font-weight: 700; color: var(--text-m);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .item-row {
+      display: grid; grid-template-columns: 3fr 0.7fr 1.3fr 1.3fr 40px;
+      gap: 8px; margin-bottom: 10px; align-items: center;
+    }
+    .items-total-row {
+      display: flex; justify-content: flex-end; align-items: center;
+      gap: 12px; padding: 10px 10px 4px;
+      border-top: 2px solid var(--cyan); margin-top: 6px;
+    }
+    .items-total-row .total-label {
+      font-size: 0.82rem; font-weight: 800; color: var(--navy);
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .items-total-row .total-value {
+      font-size: 1.05rem; font-weight: 900; color: var(--navy);
+      background: rgba(0,200,255,0.12); border: 2px solid var(--cyan);
+      border-radius: 8px; padding: 6px 18px; min-width: 160px; text-align: right;
+    }
+    .item-row input, .item-row select {
+      border: 2px solid var(--gray-ln); border-radius: 8px;
+      padding: 9px 11px; font-family: var(--font); font-size: 0.85rem;
+      color: var(--text-d); outline: none; width: 100%; transition: all 0.2s;
+    }
+    .item-row input:focus, .item-row select:focus {
+      border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,200,255,0.1);
+    }
+    .item-del {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid #fecaca; background: #fff5f5; color: var(--red);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; transition: all 0.2s; flex-shrink: 0;
+    }
+    .item-del:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+    .add-item-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 20px; background: transparent;
+      border: 2px dashed var(--cyan); color: var(--cyan-d);
+      border-radius: 10px; font-family: var(--font); font-size: 0.85rem;
+      font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 4px;
+    }
+    .add-item-btn:hover { background: rgba(0,200,255,0.07); transform: translateY(-1px); }
+
+    /* ── NOTA INFORMATIVA ── */
+    .info-box {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: rgba(0,200,255,0.06);
+      border: 1px solid rgba(0,200,255,0.25);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .info-box i { color: var(--cyan); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+    .info-box p { font-size: 0.82rem; color: var(--text-m); line-height: 1.6; }
+    .info-box p strong { color: var(--navy-mid); }
+
+    /* ── BOTONES ENVÍO ── */
+    .submit-section {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .btn-submit-wa {
+      width: 100%; padding: 17px; background: var(--green);
+      color: var(--white); border: none; border-radius: var(--radius);
+      font-family: var(--font); font-size: 1rem; font-weight: 800;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 10px; transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+    }
+    .btn-submit-wa:hover { background: #1da851; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.4); }
+
+    .btn-submit-pdf {
+      width: 100%; padding: 15px; background: var(--cyan);
+      color: var(--navy); border: none; border-radius: var(--radius);
+      font-family: var(--font); font-size: 0.95rem; font-weight: 800;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 10px; transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(0,200,255,0.25);
+    }
+    .btn-submit-pdf:hover { background: var(--cyan-d); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,200,255,0.4); }
+
+    .btn-submit-email {
+      width: 100%; padding: 15px; background: transparent;
+      color: var(--navy-mid); border: 2px solid var(--navy-mid);
+      border-radius: var(--radius); font-family: var(--font); font-size: 0.95rem;
+      font-weight: 700; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; gap: 10px; transition: all 0.25s;
+    }
+    .btn-submit-email:hover { background: var(--navy-mid); color: var(--white); transform: translateY(-1px); }
+
+    .divider-or {
+      text-align: center; font-size: 0.72rem; font-weight: 700;
+      color: var(--text-m); text-transform: uppercase; letter-spacing: 0.1em;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .divider-or::before, .divider-or::after {
+      content: ''; flex: 1; height: 1px; background: var(--gray-ln);
+    }
+
+    /* ── WHATSAPP SELECTOR ── */
+    .wa-team {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    }
+    .wa-member {
+      border: 2px solid var(--gray-ln); border-radius: 10px;
+      padding: 12px 10px; text-align: center; cursor: pointer;
+      transition: all 0.2s; background: var(--white);
+    }
+    .wa-member:hover, .wa-member.selected {
+      border-color: var(--green);
+      background: rgba(37,211,102,0.05);
+    }
+    .wa-member input { display: none; }
+    .wa-member-icon { font-size: 1.4rem; color: var(--green); margin-bottom: 5px; }
+    .wa-member-name { font-size: 0.82rem; font-weight: 700; color: var(--text-d); }
+    .wa-member-role { font-size: 0.66rem; color: var(--text-m); margin-top: 2px; }
+    .wa-member-num { font-size: 0.7rem; color: var(--cyan-d); font-weight: 600; margin-top: 3px; }
+
+    /* ── SUCCESS SCREEN ── */
+    .success-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(13,27,42,0.95); z-index: 9999;
+      align-items: center; justify-content: center;
+      flex-direction: column; text-align: center; padding: 24px;
+    }
+    .success-overlay.show { display: flex; }
+    .success-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: rgba(37,211,102,0.15); border: 2px solid var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; color: var(--green); margin-bottom: 22px;
+      animation: pop 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    @keyframes pop { 0%{transform:scale(0)} 100%{transform:scale(1)} }
+    .success-overlay h2 { font-size: 1.6rem; color: var(--white); margin-bottom: 10px; }
+    .success-overlay p { color: rgba(255,255,255,0.65); font-size: 0.95rem; max-width: 420px; line-height: 1.7; }
+    .success-overlay .success-actions { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-new { padding: 12px 28px; background: var(--cyan); color: var(--navy); border: none; border-radius: 50px; font-family: var(--font); font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .btn-new:hover { background: var(--cyan-d); transform: translateY(-1px); }
+    .btn-home { padding: 12px 28px; background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.3); border-radius: 50px; font-family: var(--font); font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-home:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--navy); color: var(--white);
+      padding: 12px 24px; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 600;
+      display: flex; align-items: center; gap: 9px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+      transition: transform 0.3s ease; z-index: 9999;
+      border: 1px solid rgba(0,200,255,0.25);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast i { color: var(--cyan); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .topbar { padding: 10px 14px; }
+      .page-wrap { padding: 16px 12px 60px; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row.three { grid-template-columns: 1fr 1fr; }
+      .items-header { display: none; }
+      .item-row { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; gap: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--gray-ln); }
+      .item-row .item-desc { grid-column: 1 / -1; }
+      .item-row .item-subtotal { grid-column: 1; }
+      .item-del { grid-column: 2; justify-self: end; }
+      .wa-team { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── TOP BAR ── -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <img src="images/logo-scm-dark.png" alt="SCM" />
+      <div>
+        <div class="topbar-brand-txt">SCM <span>Servicios Informáticos</span></div>
+        <span class="topbar-brand-sub">Solicitar Cotización — Palpalá, Jujuy</span>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <a href="index.html" class="tb-btn tb-btn-back"><i class="fas fa-arrow-left"></i> Volver al sitio</a>
+    </div>
+  </div>
+
+  <!-- ── HERO BANNER ── -->
+  <div class="hero-banner">
+    <div class="hero-badge"><i class="fas fa-file-invoice-dollar"></i> Cotizaciones Gratuitas</div>
+    <h1>Pedí tu <span>Cotización</span> sin cargo</h1>
+    <p>Completá el formulario con lo que necesitás y te enviamos el presupuesto detallado <strong style="color:var(--cyan)">en minutos</strong> — por WhatsApp o email.</p>
+    <div class="hero-steps">
+      <div class="step-item"><i class="fas fa-edit"></i> 1. Completá el formulario</div>
+      <div class="step-item"><i class="fas fa-paper-plane"></i> 2. Envianos tu consulta</div>
+      <div class="step-item"><i class="fas fa-clock"></i> 3. Recibís la cotización en minutos</div>
+      <div class="step-item"><i class="fas fa-check-circle"></i> 4. ¡Sin compromiso!</div>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- ── TUS DATOS ── -->
+    <div class="card">
+      <div class="card-head">
+        <div class="ch-icon"><i class="fas fa-user"></i></div>
+        <div>
+          <h3>Tus datos de contacto</h3>
+          <p>Para enviarte la cotización necesitamos saber cómo contactarte</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-row">
+          <div class="fg">
+            <label><i class="fas fa-user"></i> Nombre y apellido <span class="req">*</span></label>
+            <input type="text" id="clienteNombre" placeholder="Ej: Juan Pérez" />
+          </div>
+          <div class="fg">
+            <label><i class="fas fa-phone"></i> Teléfono / WhatsApp <span class="req">*</span></label>
+            <input type="tel" id="clienteTel" placeholder="Ej: 3884-123456" />
+            <span class="hint">Número al que te enviaremos la cotización</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label><i class="fas fa-envelope"></i> Correo electrónico</label>
+            <input type="email" id="clienteEmail" placeholder="tu@correo.com" />
+            <span class="hint">Opcional — también podemos enviar por email</span>
+          </div>
+          <div class="fg">
+            <label><i class="fas fa-map-marker-alt"></i> Localidad / Barrio</label>
+            <input type="text" id="clienteLocalidad" placeholder="Ej: Palpalá, Bº 23 de Agosto" />
+          </div>
+        </div>
+        <div class="form-row one">
+          <div class="fg">
+            <label><i class="fas fa-building"></i> Empresa / Comercio (si aplica)</label>
+            <input type="text" id="clienteEmpresa" placeholder="Ej: Comercio El Sol / Mi empresa S.A." />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── QUÉ NECESITÁS ── -->
+    <div class="card">
+      <div class="card-head">
+        <div class="ch-icon"><i class="fas fa-list-ul"></i></div>
+        <div>
+          <h3>¿Qué querés cotizar?</h3>
+          <p>Describí los productos o servicios que te interesan</p>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <!-- Tipo de servicio -->
+        <div class="form-row one" style="margin-bottom:18px;">
+          <div class="fg">
+            <label><i class="fas fa-tag"></i> Tipo de servicio / proyecto <span class="req">*</span></label>
+            <select id="tipoServicio">
+              <option value="">— Seleccioná un tipo —</option>
+              <option value="Instalación de Cámaras de Seguridad">📷 Instalación de Cámaras de Seguridad</option>
+              <option value="Sistema de Alarma">🔔 Sistema de Alarma</option>
+              <option value="Tendido de Redes / Cableado">🌐 Tendido de Redes / Cableado estructurado</option>
+              <option value="Venta de Hardware / Equipos">💻 Venta de Hardware / Equipos</option>
+              <option value="Soporte Técnico / Reparación">🔧 Soporte Técnico / Reparación</option>
+              <option value="IA Aplicada a Seguridad">🤖 IA Aplicada a Seguridad</option>
+              <option value="Control de Acceso">🚪 Control de Acceso</option>
+              <option value="Proyecto Integral de Seguridad">🛡️ Proyecto Integral de Seguridad</option>
+              <option value="Otro">📌 Otro (especificar abajo)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Detalle de ítems -->
+        <div class="items-header">
+          <span>Descripción del producto / servicio</span>
+          <span>Cant.</span>
+          <span>Precio unit. (ARS $)</span>
+          <span>Subtotal (ARS $)</span>
+          <span></span>
+        </div>
+        <div id="itemsContainer"></div>
+        <div class="items-total-row">
+          <span class="total-label">TOTAL:</span>
+          <span class="total-value" id="totalGeneral">$ 0,00</span>
+        </div>
+        <button class="add-item-btn" onclick="addItem()">
+          <i class="fas fa-plus-circle"></i> Agregar otro ítem
+        </button>
+
+        <!-- Lugar de instalación -->
+        <div class="form-row one" style="margin-top:20px;">
+          <div class="fg">
+            <label><i class="fas fa-map-pin"></i> Lugar de instalación / entrega</label>
+            <input type="text" id="lugarInstalacion" placeholder="Ej: Casa particular, local comercial, depósito..." />
+          </div>
+        </div>
+
+        <!-- Descripción libre -->
+        <div class="form-row one">
+          <div class="fg">
+            <label><i class="fas fa-comment-dots"></i> Descripción adicional / detalles</label>
+            <textarea id="descripcion" placeholder="Contanos más sobre lo que necesitás: cantidad de ambientes, si ya tenés cámaras instaladas, tipo de propiedad, cobertura deseada, presupuesto estimado, etc. Cuanto más detallás, mejor podemos cotizarte."></textarea>
+          </div>
+        </div>
+
+        <!-- Urgencia -->
+        <div class="form-row one" style="margin-bottom:0;">
+          <div class="fg">
+            <label><i class="fas fa-clock"></i> ¿Cuándo lo necesitás?</label>
+            <select id="urgencia">
+              <option value="Sin fecha específica">Sin fecha específica</option>
+              <option value="Lo antes posible">Lo antes posible</option>
+              <option value="Esta semana">Esta semana</option>
+              <option value="Este mes">Este mes</option>
+              <option value="En los próximos 2-3 meses">En los próximos 2-3 meses</option>
+              <option value="Solo estoy consultando">Solo estoy consultando precio</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── CÓMO QUERÉS RECIBIRLO ── -->
+    <div class="card">
+      <div class="card-head">
+        <div class="ch-icon"><i class="fas fa-paper-plane"></i></div>
+        <div>
+          <h3>¿Cómo te enviamos la cotización?</h3>
+          <p>Elegí por cuál de nuestros técnicos preferís recibir atención</p>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="info-box" style="margin-bottom:18px;">
+          <i class="fas fa-bolt"></i>
+          <p>Respondemos <strong>en minutos</strong> por WhatsApp. También podés elegir recibir la cotización por correo electrónico. <strong>¡Sin cargo y sin compromiso!</strong></p>
+        </div>
+
+        <div class="fg" style="margin-bottom:18px;">
+          <label><i class="fab fa-whatsapp"></i> Elegí con quién hablar del equipo</label>
+          <div class="wa-team">
+            <label class="wa-member selected">
+              <input type="radio" name="tecnico" value="Sergio|5493884212364" checked />
+              <div class="wa-member-icon"><i class="fas fa-user-tie"></i></div>
+              <div class="wa-member-name">Sergio</div>
+              <div class="wa-member-role">Técnico Instalador</div>
+              <div class="wa-member-num">3884-212364</div>
+            </label>
+            <label class="wa-member">
+              <input type="radio" name="tecnico" value="Misael|5493884845088" />
+              <div class="wa-member-icon"><i class="fas fa-user"></i></div>
+              <div class="wa-member-name">Misael</div>
+              <div class="wa-member-role">Técnico Instalador</div>
+              <div class="wa-member-num">3884-845088</div>
+            </label>
+            <label class="wa-member">
+              <input type="radio" name="tecnico" value="Carolina|5493885191977" />
+              <div class="wa-member-icon"><i class="fas fa-user-graduate"></i></div>
+              <div class="wa-member-name">Carolina</div>
+              <div class="wa-member-role">Especialista IA & Seguridad</div>
+              <div class="wa-member-num">3885-191977</div>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── BOTONES ── -->
+    <div class="submit-section">
+
+      <button class="btn-submit-wa" onclick="enviarWhatsApp()">
+        <i class="fab fa-whatsapp" style="font-size:1.3rem;"></i>
+        Enviar solicitud por WhatsApp — Respuesta en minutos
+      </button>
+
+      <div class="divider-or">o también podés</div>
+
+      <button class="btn-submit-pdf" onclick="descargarPDF()">
+        <i class="fas fa-file-pdf"></i> Descargar mi solicitud en PDF
+      </button>
+
+      <button class="btn-submit-email" onclick="enviarEmail()">
+        <i class="fas fa-envelope"></i> Enviar por correo electrónico
+      </button>
+
+    </div>
+
+    <!-- Info pie -->
+    <div class="info-box">
+      <i class="fas fa-shield-alt"></i>
+      <p>Tu información es confidencial y solo será utilizada para enviarte la cotización solicitada. No compartimos datos con terceros. <strong>SCM Servicios Informáticos — Palpalá, Jujuy.</strong><br />
+      📍 Bº Gral. Savio, Leandro Alem 263 &nbsp;|&nbsp; ✉️ scmserviciosinformaticos01@gmail.com</p>
+    </div>
+
+  </div><!-- /page-wrap -->
+
+  <!-- ── SUCCESS OVERLAY ── -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-icon"><i class="fas fa-check"></i></div>
+    <h2>¡Solicitud enviada!</h2>
+    <p id="successMsg">Tu consulta fue enviada correctamente. Un miembro de nuestro equipo te responderá con la cotización <strong style="color:var(--cyan)">en minutos</strong>.</p>
+    <div class="success-actions">
+      <button class="btn-new" onclick="nuevaSolicitud()"><i class="fas fa-plus"></i> Nueva solicitud</button>
+      <button class="btn-home" onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Ir al sitio</button>
+    </div>
+  </div>
+
+  <!-- ── TOAST ── -->
+  <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Listo</span></div>
+
+  <script>
+  /* ═══════════════════════════════════════
+     ITEMS DINÁMICOS
+  ═══════════════════════════════════════ */
+  let itemCount = 0;
+
+  window.addEventListener('DOMContentLoaded', () => {
+    addItem(); // Un ítem por defecto
+    // Radio buttons de técnico
+    document.querySelectorAll('.wa-member input').forEach(r => {
+      r.addEventListener('change', () => {
+        document.querySelectorAll('.wa-member').forEach(m => m.classList.remove('selected'));
+        r.closest('.wa-member').classList.add('selected');
+      });
+    });
+  });
+
+  function formatARS(num) {
+    if (isNaN(num) || num === '') return '—';
+    return '$ ' + Number(num).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function recalcularTotal() {
+    let total = 0;
+    document.querySelectorAll('.item-row').forEach(row => {
+      const inputs = row.querySelectorAll('input');
+      const qty   = parseFloat(inputs[1]?.value) || 0;
+      const price = parseFloat(inputs[2]?.value?.replace(/[^0-9.]/g,'')) || 0;
+      const sub   = qty * price;
+      total += sub;
+      const subEl = row.querySelector('.item-subtotal');
+      if (subEl) subEl.value = sub > 0 ? formatARS(sub) : '';
+    });
+    const totalEl = document.getElementById('totalGeneral');
+    if (totalEl) totalEl.textContent = formatARS(total);
+  }
+
+  function addItem() {
+    itemCount++;
+    const id = itemCount;
+    const container = document.getElementById('itemsContainer');
+    const div = document.createElement('div');
+    div.className = 'item-row';
+    div.id = 'item-' + id;
+    div.innerHTML = `
+      <input class="item-desc" type="text"
+        placeholder="Ej: Cámara IP 4MP Hikvision, Switch PoE 8 puertos, Instalación..."
+        data-id="${id}" />
+      <input type="number" min="1" value="1" placeholder="Cant." data-id="${id}"
+        style="text-align:center;" oninput="recalcularTotal()" />
+      <input type="number" min="0" placeholder="Precio unit. $" data-id="${id}"
+        style="text-align:right;" oninput="recalcularTotal()" />
+      <input type="text" class="item-subtotal" placeholder="Subtotal" data-id="${id}"
+        style="text-align:right; background:#f0f9ff; font-weight:700;" readonly />
+      <button class="item-del" onclick="removeItem(${id})" title="Eliminar ítem">
+        <i class="fas fa-times"></i>
+      </button>`;
+    container.appendChild(div);
+  }
+
+  function removeItem(id) {
+    const el = document.getElementById('item-' + id);
+    if (el) { el.remove(); recalcularTotal(); }
+  }
+
+  function getItems() {
+    const rows = document.querySelectorAll('.item-row');
+    const items = [];
+    rows.forEach(row => {
+      const inputs = row.querySelectorAll('input');
+      const desc  = inputs[0]?.value?.trim() || '';
+      const qty   = inputs[1]?.value || '1';
+      const price = parseFloat(inputs[2]?.value?.replace(/[^0-9.]/g,'')) || 0;
+      const sub   = (parseFloat(qty) || 0) * price;
+      if (desc) items.push({ desc, qty, price, sub });
+    });
+    return items;
+  }
+
+  /* ═══════════════════════════════════════
+     VALIDACIÓN
+  ═══════════════════════════════════════ */
+  function validar() {
+    let ok = true;
+    const nombre = document.getElementById('clienteNombre');
+    const tel    = document.getElementById('clienteTel');
+    const tipo   = document.getElementById('tipoServicio');
+
+    [nombre, tel, tipo].forEach(f => f.classList.remove('error'));
+
+    if (!nombre.value.trim()) { nombre.classList.add('error'); ok = false; }
+    if (!tel.value.trim())    { tel.classList.add('error'); ok = false; }
+    if (!tipo.value)          { tipo.classList.add('error'); ok = false; }
+
+    if (!ok) {
+      showToast('⚠️ Completá los campos obligatorios (*)');
+      nombre.focus();
+    }
+    return ok;
+  }
+
+  /* ═══════════════════════════════════════
+     ENVIAR POR WHATSAPP
+  ═══════════════════════════════════════ */
+  function enviarWhatsApp() {
+    if (!validar()) return;
+
+    const nombre    = document.getElementById('clienteNombre').value.trim();
+    const tel       = document.getElementById('clienteTel').value.trim();
+    const email     = document.getElementById('clienteEmail').value.trim();
+    const localidad = document.getElementById('clienteLocalidad').value.trim();
+    const empresa   = document.getElementById('clienteEmpresa').value.trim();
+    const tipo      = document.getElementById('tipoServicio').value;
+    const lugar     = document.getElementById('lugarInstalacion').value.trim();
+    const desc      = document.getElementById('descripcion').value.trim();
+    const urgencia  = document.getElementById('urgencia').value;
+    const items     = getItems();
+
+    // Técnico seleccionado
+    const tecnicoRaw = document.querySelector('input[name="tecnico"]:checked')?.value || 'Sergio|5493884212364';
+    const [tecnicoNombre, tecnicoNum] = tecnicoRaw.split('|');
+
+    const totalGeneral = items.reduce((acc, it) => acc + it.sub, 0);
+
+    let msg = `🛡️ *SOLICITUD DE COTIZACIÓN — SCM Servicios Informáticos*\n`;
+    msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    msg += `👤 *DATOS DEL CLIENTE*\n`;
+    msg += `▸ Nombre: ${nombre}\n`;
+    msg += `▸ Teléfono: ${tel}\n`;
+    if (email)     msg += `▸ Email: ${email}\n`;
+    if (localidad) msg += `▸ Localidad: ${localidad}\n`;
+    if (empresa)   msg += `▸ Empresa: ${empresa}\n`;
+    msg += `\n📋 *LO QUE NECESITA COTIZAR*\n`;
+    msg += `▸ Tipo: ${tipo}\n`;
+    if (lugar) msg += `▸ Lugar de instalación: ${lugar}\n`;
+
+    if (items.length > 0) {
+      msg += `\n📦 *PRODUCTOS / SERVICIOS:*\n`;
+      items.forEach((it, i) => {
+        msg += `  ${i + 1}. ${it.desc} (x${it.qty})`;
+        if (it.price > 0) msg += ` — Precio unit.: ${formatARS(it.price)} — Subtotal: ${formatARS(it.sub)}`;
+        msg += `\n`;
+      });
+      if (totalGeneral > 0) msg += `\n💰 *TOTAL GENERAL: ${formatARS(totalGeneral)}*\n`;
+    }
+
+    if (desc) msg += `\n📝 *Detalles adicionales:*\n${desc}\n`;
+    msg += `\n⏱️ Cuándo lo necesita: ${urgencia}\n`;
+    msg += `💰 Presupuesto estimado: ${presup}\n`;
+    msg += `\n━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    msg += `📍 SCM Servicios Informáticos — Palpalá, Jujuy\n`;
+    msg += `Enviado desde el formulario web`;
+
+    window.open(`https://wa.me/${tecnicoNum}?text=${encodeURIComponent(msg)}`, '_blank');
+
+    // También notificar a los otros 2 integrantes del equipo (con delay)
+    const TEAM_ALL = [
+      { name: 'Sergio',   num: '5493884212364' },
+      { name: 'Misael',   num: '5493884845088' },
+      { name: 'Carolina', num: '5493885191977' },
+    ];
+    let delay = 900;
+    TEAM_ALL.forEach(m => {
+      if (m.num !== tecnicoNum) {
+        setTimeout(() => {
+          window.open(`https://wa.me/${m.num}?text=${encodeURIComponent(msg)}`, '_blank');
+        }, delay);
+        delay += 900;
+      }
+    });
+
+    mostrarExito(`Tu consulta fue enviada a <strong>${tecnicoNombre}</strong> y al equipo completo por WhatsApp. Te responderán con la cotización en minutos. ✅`);
+  }
+
+  /* ═══════════════════════════════════════
+     ENVIAR POR EMAIL (mailto)
+  ═══════════════════════════════════════ */
+  function enviarEmail() {
+    if (!validar()) return;
+
+    const nombre  = document.getElementById('clienteNombre').value.trim();
+    const tel     = document.getElementById('clienteTel').value.trim();
+    const email   = document.getElementById('clienteEmail').value.trim();
+    const empresa = document.getElementById('clienteEmpresa').value.trim();
+    const tipo    = document.getElementById('tipoServicio').value;
+    const lugar   = document.getElementById('lugarInstalacion').value.trim();
+    const desc    = document.getElementById('descripcion').value.trim();
+    const urgencia = document.getElementById('urgencia').value;
+    const items   = getItems();
+    const totalGeneral = items.reduce((acc, it) => acc + it.sub, 0);
+
+    const subject = encodeURIComponent(`Solicitud de cotización — ${nombre}`);
+    let body = `SOLICITUD DE COTIZACIÓN — SCM Servicios Informáticos\n\n`;
+    body += `DATOS DEL CLIENTE:\n`;
+    body += `Nombre: ${nombre}\n`;
+    body += `Teléfono: ${tel}\n`;
+    if (email)   body += `Email: ${email}\n`;
+    if (empresa) body += `Empresa: ${empresa}\n`;
+    body += `\nSERVICIO REQUERIDO: ${tipo}\n`;
+    if (lugar) body += `Lugar: ${lugar}\n`;
+    if (items.length > 0) {
+      body += `\nPRODUCTOS / SERVICIOS:\n`;
+      items.forEach((it, i) => {
+        body += `${i+1}. ${it.desc} (x${it.qty})`;
+        if (it.price > 0) body += ` - Precio unit.: ${formatARS(it.price)} - Subtotal: ${formatARS(it.sub)}`;
+        body += `\n`;
+      });
+      if (totalGeneral > 0) body += `\nTOTAL GENERAL: ${formatARS(totalGeneral)}\n`;
+    }
+    if (desc)   body += `\nDetalles: ${desc}\n`;
+    body += `\nCuándo lo necesita: ${urgencia}\n`;
+    body += `\nSCM Servicios Informáticos — Palpalá, Jujuy`;
+
+    window.location.href = `mailto:scmserviciosinformaticos01@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+    showToast('📧 Abriendo cliente de correo...');
+  }
+
+  /* ═══════════════════════════════════════
+     DESCARGAR PDF DE SOLICITUD
+  ═══════════════════════════════════════ */
+  function descargarPDF() {
+    if (!validar()) return;
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const W = 210, PL = 15, PR = 195;
+    let y = 0;
+
+    const navyRGB  = [13, 27, 42];
+    const cyanRGB  = [0, 200, 255];
+    const grayRGB  = [240, 244, 248];
+    const textDRGB = [26, 32, 44];
+    const textMRGB = [74, 85, 104];
+
+    const nombre    = document.getElementById('clienteNombre').value.trim();
+    const tel       = document.getElementById('clienteTel').value.trim();
+    const email     = document.getElementById('clienteEmail').value.trim();
+    const localidad = document.getElementById('clienteLocalidad').value.trim();
+    const empresa   = document.getElementById('clienteEmpresa').value.trim();
+    const tipo      = document.getElementById('tipoServicio').value;
+    const lugar     = document.getElementById('lugarInstalacion').value.trim();
+    const desc      = document.getElementById('descripcion').value.trim();
+    const urgencia  = document.getElementById('urgencia').value;
+    const items     = getItems();
+    const now       = new Date();
+    const fecha     = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()}`;
+
+    // Header navy
+    doc.setFillColor(...navyRGB);
+    doc.rect(0, 0, W, 40, 'F');
+    doc.setFillColor(...cyanRGB);
+    doc.rect(0, 0, W, 2.5, 'F');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(17);
+    doc.setTextColor(255,255,255);
+    doc.text('SCM Servicios Informáticos', PL, 13);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(180,220,255);
+    doc.text('Seguridad Electrónica · Hardware · Software · Redes · Palpalá, Jujuy', PL, 19);
+    doc.setFontSize(7);
+    doc.text('Bº Gral. Savio, Leandro Alem 263 · scmserviciosinformaticos01@gmail.com', PL, 24);
+
+    // Badge SOLICITUD DE COTIZACIÓN
+    doc.setFillColor(0, 160, 210);
+    doc.roundedRect(132, 5, 63, 30, 3, 3, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(255,255,255);
+    doc.text('SOLICITUD DE', 163.5, 13, { align: 'center' });
+    doc.text('COTIZACIÓN', 163.5, 20, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.text(`Fecha: ${fecha}`, 163.5, 27, { align: 'center' });
+    doc.text('Sin cargo · Sin compromiso', 163.5, 32, { align: 'center' });
+
+    y = 48;
+
+    // Datos del cliente
+    doc.setFillColor(...grayRGB);
+    doc.roundedRect(PL, y, W - PL*2, 38, 2, 2, 'F');
+    doc.setFillColor(...navyRGB);
+    doc.roundedRect(PL, y, W - PL*2, 7, 2, 2, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(7); doc.setTextColor(...cyanRGB);
+    doc.text('DATOS DEL SOLICITANTE', PL + 4, y + 4.8);
+    y += 10;
+
+    const clienteData = [
+      ['Nombre:', nombre],
+      ['Teléfono / WhatsApp:', tel],
+      email ? ['Email:', email] : null,
+      localidad ? ['Localidad:', localidad] : null,
+      empresa ? ['Empresa:', empresa] : null,
+    ].filter(Boolean);
+
+    const col1 = [], col2 = [];
+    clienteData.forEach((d, i) => {
+      if (i < Math.ceil(clienteData.length / 2)) col1.push(d);
+      else col2.push(d);
+    });
+
+    col1.forEach((d, i) => {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5); doc.setTextColor(...textMRGB);
+      doc.text(d[0], PL + 3, y + i * 5.5);
+      doc.setFont('helvetica', 'normal'); doc.setTextColor(...textDRGB);
+      doc.text(d[1], PL + 36, y + i * 5.5);
+    });
+    col2.forEach((d, i) => {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5); doc.setTextColor(...textMRGB);
+      doc.text(d[0], PL + 95, y + i * 5.5);
+      doc.setFont('helvetica', 'normal'); doc.setTextColor(...textDRGB);
+      doc.text(d[1], PL + 130, y + i * 5.5);
+    });
+
+    y += Math.max(col1.length, col2.length) * 5.5 + 8;
+
+    // Tipo de servicio — en 2 líneas para no superponer texto
+    doc.setFillColor(225, 240, 255);
+    const altoTipo = lugar ? 16 : 9;
+    doc.roundedRect(PL, y, W - PL*2, altoTipo, 2, 2, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5); doc.setTextColor(...navyRGB);
+    doc.text(`Tipo de servicio: ${tipo}`, PL + 3, y + 5.5);
+    if (lugar) {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...textMRGB);
+      doc.text(`Lugar de instalación: ${lugar}`, PL + 3, y + 12);
+    }
+    y += altoTipo + 6;
+
+    // Tabla de ítems con Precio unitario, Subtotal en ARS y fila TOTAL
+    if (items.length > 0) {
+      const totalGeneral2 = items.reduce((acc, it) => acc + it.sub, 0);
+      const tableData = items.map((it, idx) => [
+        idx + 1,
+        it.desc,
+        it.qty,
+        it.price > 0 ? formatARS(it.price) : '—',
+        it.sub   > 0 ? formatARS(it.sub)   : '—',
+      ]);
+      // Fila TOTAL
+      tableData.push([
+        '', 
+        { content: 'TOTAL GENERAL', styles: { fontStyle: 'bold', halign: 'right' } },
+        '', '',
+        { content: formatARS(totalGeneral2), styles: { fontStyle: 'bold', fillColor: [0,27,60], textColor: [0,200,255], halign: 'right' } }
+      ]);
+      doc.autoTable({
+        startY: y,
+        head: [['#', 'Descripción del producto / servicio solicitado', 'Cant.', 'Precio unit. (ARS)', 'Subtotal (ARS)']],
+        body: tableData,
+        styles: { font: 'helvetica', fontSize: 7.5, cellPadding: 3, textColor: textDRGB, lineColor: [220,225,235], lineWidth: 0.2 },
+        headStyles: { fillColor: navyRGB, textColor: [200,235,255], fontStyle: 'bold', fontSize: 7 },
+        alternateRowStyles: { fillColor: grayRGB },
+        columnStyles: {
+          0: { cellWidth: 8,  halign: 'center' },
+          2: { cellWidth: 12, halign: 'center' },
+          3: { cellWidth: 32, halign: 'right' },
+          4: { cellWidth: 32, halign: 'right' },
+        },
+        margin: { left: PL, right: PL },
+        theme: 'grid',
+      });
+      y = doc.lastAutoTable.finalY + 8;
+    }
+
+    // Detalles adicionales
+    if (desc) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(7.5); doc.setTextColor(...navyRGB);
+      doc.text('Detalles adicionales:', PL, y); y += 5;
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(...textMRGB);
+      const dLines = doc.splitTextToSize(desc, W - PL*2);
+      doc.text(dLines, PL, y); y += dLines.length * 3.8 + 5;
+    }
+
+    // Solo urgencia (sin "presupuesto estimado")
+    doc.setFillColor(...grayRGB);
+    doc.roundedRect(PL, y, W - PL*2, 10, 2, 2, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(7); doc.setTextColor(...textMRGB);
+    doc.text('Cuándo lo necesita:', PL + 3, y + 6);
+    doc.setFont('helvetica', 'normal'); doc.setTextColor(...textDRGB);
+    doc.text(urgencia, PL + 42, y + 6);
+    y += 16;
+
+    // Bloque: datos del técnico que elaboró el presupuesto
+    const tecnicoRaw2 = document.querySelector('input[name="tecnico"]:checked')?.value || 'Sergio|5493884212364';
+    const [tecNombre2] = tecnicoRaw2.split('|');
+    const tecInfoMap = {
+      'Sergio':   { fullname: 'Sergio — Técnico Instalador',                tel: '3884-212364' },
+      'Misael':   { fullname: 'Misael Martiarena — Técnico Instalador',     tel: '3884-845088' },
+      'Carolina': { fullname: 'Carolina — Especialista IA & Seguridad',     tel: '3885-191977' },
+    };
+    const tecData = tecInfoMap[tecNombre2] || { fullname: tecNombre2, tel: '' };
+
+    if (y < 260) {
+      doc.setFillColor(240, 248, 255);
+      doc.roundedRect(PL, y, W - PL*2, 18, 2, 2, 'F');
+      doc.setDrawColor(...cyanRGB); doc.setLineWidth(0.5);
+      doc.roundedRect(PL, y, W - PL*2, 18, 2, 2, 'S');
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(7); doc.setTextColor(...navyRGB);
+      doc.text('Elaborado por:', PL + 3, y + 6);
+      doc.setFont('helvetica', 'normal'); doc.setTextColor(...textDRGB);
+      doc.text(tecData.fullname, PL + 32, y + 6);
+      doc.setFont('helvetica', 'bold'); doc.setTextColor(...textMRGB);
+      doc.text('Tel./WhatsApp:', PL + 3, y + 13);
+      doc.setFont('helvetica', 'normal'); doc.setTextColor(...textDRGB);
+      doc.text(tecData.tel + '  ·  SCM Servicios Informáticos — Palpalá, Jujuy', PL + 32, y + 13);
+      y += 24;
+    }
+
+    // Footer
+    doc.setFillColor(...navyRGB);
+    doc.rect(0, 282, W, 15, 'F');
+    doc.setFillColor(...cyanRGB);
+    doc.rect(0, 282, W, 1.5, 'F');
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5); doc.setTextColor(180,220,255);
+    doc.text('SCM Servicios Informáticos — Bº Gral. Savio, Leandro Alem 263, Palpalá, Jujuy', PL, 288);
+    doc.text('scmserviciosinformaticos01@gmail.com  ·  3884-212364 (Sergio)  ·  3884-845088 (Misael)  ·  3885-191977 (Carolina)', PL, 292.5);
+    doc.setTextColor(...cyanRGB);
+    doc.text('Cotizaciones sin cargo — Respuesta en minutos', PR, 292.5, { align: 'right' });
+
+    const filename = `Solicitud-Cotizacion-SCM-${nombre.replace(/\s+/g,'-')}.pdf`;
+    doc.save(filename);
+    showToast('✅ PDF descargado: ' + filename);
+  }
+
+  /* ═══════════════════════════════════════
+     ÉXITO / NUEVA SOLICITUD
+  ═══════════════════════════════════════ */
+  function mostrarExito(msg) {
+    document.getElementById('successMsg').innerHTML = msg;
+    document.getElementById('successOverlay').classList.add('show');
+  }
+
+  function nuevaSolicitud() {
+    document.getElementById('successOverlay').classList.remove('show');
+    document.getElementById('clienteNombre').value = '';
+    document.getElementById('clienteTel').value = '';
+    document.getElementById('clienteEmail').value = '';
+    document.getElementById('clienteLocalidad').value = '';
+    document.getElementById('clienteEmpresa').value = '';
+    document.getElementById('tipoServicio').value = '';
+    document.getElementById('lugarInstalacion').value = '';
+    document.getElementById('descripcion').value = '';
+    document.getElementById('itemsContainer').innerHTML = '';
+    itemCount = 0;
+    addItem();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ═══════════════════════════════════════
+     TOAST
+  ═══════════════════════════════════════ */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+  }
+  </script>
+</body>
+</html>

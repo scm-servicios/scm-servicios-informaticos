@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Clientes — SCM Servicios Informáticos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --navy:    #0d1b2a;
+      --navy-m:  #1a3a6b;
+      --cyan:    #00c8ff;
+      --cyan-d:  #009fcb;
+      --white:   #ffffff;
+      --gray-bg: #f0f4f8;
+      --gray-ln: #e2e8f0;
+      --text-d:  #1a202c;
+      --text-m:  #4a5568;
+      --green:   #25d366;
+      --red:     #e63946;
+      --font:    'Poppins', sans-serif;
+      --r:       14px;
+      --shadow:  0 4px 28px rgba(0,0,0,0.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; }
+    body { font-family: var(--font); background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── BG ANIMADO ── */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse at 20% 30%, rgba(0,200,255,0.07) 0%, transparent 55%),
+                  radial-gradient(ellipse at 80% 70%, rgba(26,58,107,0.4) 0%, transparent 55%),
+                  var(--navy);
+    }
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0; opacity: 0.04;
+      background-image: linear-gradient(rgba(0,200,255,1) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0,200,255,1) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      position: relative; z-index: 10;
+      background: rgba(13,27,42,0.9);
+      border-bottom: 2px solid var(--cyan);
+      padding: 12px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(10px);
+    }
+    .tb-brand { display: flex; align-items: center; gap: 12px; }
+    .tb-brand img { width: 70px; height: 70px; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,200,255,0.45)); border-radius: 10px; }
+    .tb-brand-txt { font-size: 0.95rem; font-weight: 700; color: var(--white); }
+    .tb-brand-txt span { color: var(--cyan); }
+    .tb-brand-sub { font-size: 0.66rem; color: rgba(255,255,255,0.4); display: block; }
+    .tb-back { display: flex; align-items: center; gap: 6px; padding: 8px 18px; border: 1px solid rgba(255,255,255,0.2); border-radius: 50px; color: rgba(255,255,255,0.65); font-size: 0.8rem; font-weight: 600; transition: all 0.2s; }
+    .tb-back:hover { color: var(--white); border-color: var(--cyan); }
+
+    /* ── MAIN ── */
+    .main {
+      position: relative; z-index: 5;
+      display: flex; align-items: center; justify-content: center;
+      flex: 1; padding: 40px 16px;
+    }
+
+    /* ── CARD CONTENEDOR ── */
+    .auth-box {
+      background: rgba(255,255,255,0.97);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,200,255,0.15);
+      width: 100%; max-width: 460px;
+      overflow: hidden;
+    }
+
+    /* ── TABS ── */
+    .auth-tabs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: var(--navy);
+    }
+    .auth-tab {
+      padding: 17px 10px; text-align: center;
+      font-size: 0.88rem; font-weight: 700; cursor: pointer;
+      color: rgba(255,255,255,0.45); border: none;
+      background: transparent; font-family: var(--font);
+      transition: all 0.25s; display: flex; align-items: center; justify-content: center; gap: 7px;
+    }
+    .auth-tab.active { color: var(--cyan); border-bottom: 3px solid var(--cyan); }
+    .auth-tab:not(.active):hover { color: rgba(255,255,255,0.7); }
+
+    /* ── CUERPO ── */
+    .auth-body { padding: 32px 36px 36px; }
+
+    /* ── PANEL ── */
+    .auth-panel { display: none; }
+    .auth-panel.active { display: block; }
+
+    /* ── HEADER DEL PANEL ── */
+    .panel-header { text-align: center; margin-bottom: 28px; }
+    .panel-header .icon-wrap {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-m) 100%);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px; box-shadow: 0 4px 16px rgba(0,200,255,0.25);
+      border: 2px solid rgba(0,200,255,0.3);
+    }
+    .panel-header .icon-wrap i { color: var(--cyan); font-size: 1.4rem; }
+    .panel-header h2 { font-size: 1.3rem; font-weight: 800; color: var(--text-d); margin-bottom: 5px; }
+    .panel-header p { font-size: 0.82rem; color: var(--text-m); line-height: 1.5; }
+
+    /* ── FORM ELEMENTS ── */
+    .fg { margin-bottom: 16px; }
+    .fg label { display: flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; color: var(--text-m); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .fg label i { color: var(--cyan); font-size: 0.7rem; }
+    .fg .req { color: var(--red); }
+    .input-wrap { position: relative; }
+    .input-wrap input {
+      width: 100%; padding: 12px 42px 12px 14px;
+      border: 2px solid var(--gray-ln); border-radius: 10px;
+      font-family: var(--font); font-size: 0.88rem;
+      color: var(--text-d); background: var(--white);
+      transition: all 0.2s; outline: none;
+    }
+    .input-wrap input:focus { border-color: var(--cyan); box-shadow: 0 0 0 4px rgba(0,200,255,0.1); }
+    .input-wrap input.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(230,57,70,0.1); }
+    .input-wrap .inp-icon {
+      position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+      color: #a0aec0; font-size: 0.85rem; pointer-events: none;
+    }
+    .input-wrap .toggle-pw {
+      pointer-events: all; cursor: pointer; transition: color 0.2s;
+    }
+    .input-wrap .toggle-pw:hover { color: var(--cyan); }
+    .fg .hint { font-size: 0.68rem; color: var(--text-m); margin-top: 4px; }
+
+    /* ── BOTÓN PRINCIPAL ── */
+    .btn-auth {
+      width: 100%; padding: 15px; background: linear-gradient(135deg, var(--navy-m), var(--navy));
+      color: var(--white); border: none; border-radius: 12px;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 800;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 9px; transition: all 0.25s; margin-top: 8px;
+      box-shadow: 0 4px 18px rgba(13,27,42,0.3);
+    }
+    .btn-auth:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,200,255,0.25); background: linear-gradient(135deg, #1e4a8a, #1a3a6b); }
+    .btn-auth:active { transform: translateY(0); }
+    .btn-auth .spinner { display: none; }
+    .btn-auth.loading .spinner { display: inline-block; animation: spin 0.8s linear infinite; }
+    .btn-auth.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── DIVIDER ── */
+    .divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: #a0aec0; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--gray-ln); }
+
+    /* ── FORGOT / LINK ── */
+    .auth-link { font-size: 0.78rem; color: var(--cyan-d); font-weight: 600; cursor: pointer; transition: color 0.2s; }
+    .auth-link:hover { color: var(--navy-m); }
+
+    /* ── ALERT ── */
+    .alert {
+      padding: 11px 14px; border-radius: 9px; font-size: 0.8rem;
+      display: flex; align-items: center; gap: 9px; margin-bottom: 16px;
+      font-weight: 600; display: none;
+    }
+    .alert.show { display: flex; }
+    .alert.error { background: #fff5f5; color: var(--red); border: 1px solid #fecaca; }
+    .alert.success { background: #f0fff4; color: #276749; border: 1px solid #9ae6b4; }
+    .alert.info { background: rgba(0,200,255,0.07); color: var(--navy-m); border: 1px solid rgba(0,200,255,0.3); }
+
+    /* ── TÉRMINOS ── */
+    .terms-row { display: flex; align-items: flex-start; gap: 9px; margin: 14px 0; }
+    .terms-row input[type="checkbox"] { margin-top: 3px; accent-color: var(--cyan); width: 15px; height: 15px; flex-shrink: 0; }
+    .terms-row label { font-size: 0.75rem; color: var(--text-m); line-height: 1.5; cursor: pointer; }
+    .terms-row label span { color: var(--cyan-d); font-weight: 600; cursor: pointer; }
+
+    /* ── DASHBOARD (tras login) ── */
+    #dashboardSection { display: none; }
+    #dashboardSection.show { display: block; }
+    .dash-welcome {
+      background: linear-gradient(135deg, var(--navy), var(--navy-m));
+      border-radius: 16px; padding: 24px 28px; margin-bottom: 20px;
+      border: 1px solid rgba(0,200,255,0.2);
+      display: flex; align-items: center; gap: 16px;
+    }
+    .dash-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan-d), var(--navy-m));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 800; color: var(--white); flex-shrink: 0;
+    }
+    .dash-name { font-size: 1.1rem; font-weight: 800; color: var(--white); }
+    .dash-sub { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .dash-tag { display: inline-flex; align-items: center; gap: 5px; background: rgba(0,200,255,0.15); border: 1px solid rgba(0,200,255,0.3); color: var(--cyan); padding: 3px 10px; border-radius: 50px; font-size: 0.68rem; font-weight: 700; margin-top: 5px; }
+
+    .dash-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;
+    }
+    .dash-card {
+      background: var(--white); border-radius: 12px; padding: 18px 16px;
+      border: 1px solid var(--gray-ln); box-shadow: var(--shadow); text-align: center;
+      transition: all 0.2s; cursor: pointer;
+    }
+    .dash-card:hover { border-color: var(--cyan); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,200,255,0.12); }
+    .dash-card .dc-icon { font-size: 1.6rem; color: var(--cyan-d); margin-bottom: 8px; }
+    .dash-card h4 { font-size: 0.85rem; font-weight: 700; color: var(--text-d); margin-bottom: 3px; }
+    .dash-card p { font-size: 0.7rem; color: var(--text-m); }
+
+    .dash-actions {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .btn-dash {
+      flex: 1; min-width: 120px; padding: 12px 16px;
+      border-radius: 10px; font-family: var(--font); font-size: 0.82rem;
+      font-weight: 700; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; gap: 7px; transition: all 0.2s; border: none;
+    }
+    .btn-dash-wa { background: var(--green); color: var(--white); }
+    .btn-dash-wa:hover { background: #1da851; transform: translateY(-1px); }
+    .btn-dash-pres { background: var(--cyan); color: var(--navy); }
+    .btn-dash-pres:hover { background: var(--cyan-d); transform: translateY(-1px); }
+    .btn-dash-out { background: transparent; color: var(--red); border: 1px solid #fecaca; }
+    .btn-dash-out:hover { background: var(--red); color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      .auth-body { padding: 24px 20px 28px; }
+      .topbar { padding: 10px 14px; }
+      .dash-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fondos decorativos -->
+  <div class="bg-canvas"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ── TOPBAR ── -->
+  <div class="topbar">
+    <div class="tb-brand">
+      <img src="images/logo-scm-dark.png" alt="SCM" />
+      <div>
+        <div class="tb-brand-txt">SCM <span>Servicios Informáticos</span></div>
+        <span class="tb-brand-sub">Portal de Clientes</span>
+      </div>
+    </div>
+    <a href="index.html" class="tb-back"><i class="fas fa-arrow-left"></i> Volver al sitio</a>
+  </div>
+
+  <!-- ── MAIN ── -->
+  <div class="main">
+    <div class="auth-box" id="authBox">
+
+      <!-- TABS -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">
+          <i class="fas fa-sign-in-alt"></i> Ingresar
+        </button>
+        <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">
+          <i class="fas fa-user-plus"></i> Registrarse
+        </button>
+      </div>
+
+      <div class="auth-body">
+
+        <!-- ══ PANEL LOGIN ══ -->
+        <div class="auth-panel active" id="panelLogin">
+          <div class="panel-header">
+            <div class="icon-wrap"><i class="fas fa-lock"></i></div>
+            <h2>Bienvenido de vuelta</h2>
+            <p>Ingresá tu email y contraseña para acceder a tu panel de cliente</p>
+          </div>
+
+          <div class="alert" id="loginAlert"><i class="fas fa-exclamation-circle"></i><span></span></div>
+
+          <form onsubmit="doLogin(); return false;" autocomplete="on">
+          <div class="fg">
+            <label><i class="fas fa-envelope"></i> Email <span class="req">*</span></label>
+            <div class="input-wrap">
+              <input type="email" id="loginEmail" placeholder="tu@correo.com" autocomplete="username" />
+              <span class="inp-icon"><i class="fas fa-envelope"></i></span>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label><i class="fas fa-lock"></i> Contraseña <span class="req">*</span></label>
+            <div class="input-wrap">
+              <input type="password" id="loginPwd" placeholder="Tu contraseña" autocomplete="current-password" />
+              <span class="inp-icon toggle-pw" onclick="togglePwd('loginPwd', this)"><i class="fas fa-eye"></i></span>
+            </div>
+            <div style="text-align:right; margin-top:5px;">
+              <span class="auth-link" onclick="forgotPassword()">¿Olvidaste tu contraseña?</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-auth" id="btnLogin">
+            <span class="btn-text"><i class="fas fa-sign-in-alt"></i> Ingresar a mi panel</span>
+            <i class="fas fa-circle-notch spinner"></i>
+          </button>
+          </form>
+
+          <div class="divider">¿No tenés cuenta?</div>
+
+          <button type="submit" class="btn-auth" style="background: linear-gradient(135deg, rgba(0,200,255,0.15), rgba(0,200,255,0.05)); color: var(--navy-m); box-shadow: none; border: 2px solid rgba(0,200,255,0.4);" onclick="switchTab('register')">
+            <i class="fas fa-user-plus"></i> Crear mi cuenta gratis
+          </button>
+        </div>
+
+        <!-- ══ PANEL REGISTRO ══ -->
+        <div class="auth-panel" id="panelRegister">
+          <div class="panel-header">
+            <div class="icon-wrap"><i class="fas fa-user-plus"></i></div>
+            <h2>Creá tu cuenta</h2>
+            <p>Registrate para recibir cotizaciones, seguir tus pedidos y más</p>
+          </div>
+
+          <div class="alert" id="registerAlert"><i class="fas fa-exclamation-circle"></i><span></span></div>
+
+          <form onsubmit="doRegister(); return false;" autocomplete="on">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="fg" style="margin-bottom:0;">
+              <label><i class="fas fa-user"></i> Nombre <span class="req">*</span></label>
+              <div class="input-wrap">
+                <input type="text" id="regNombre" placeholder="Tu nombre" />
+                <span class="inp-icon"><i class="fas fa-user"></i></span>
+              </div>
+            </div>
+            <div class="fg" style="margin-bottom:0;">
+              <label><i class="fas fa-phone"></i> Teléfono <span class="req">*</span></label>
+              <div class="input-wrap">
+                <input type="tel" id="regTel" placeholder="3884-XXXXXX" />
+                <span class="inp-icon"><i class="fas fa-phone"></i></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fg" style="margin-top:14px;">
+            <label><i class="fas fa-envelope"></i> Email <span class="req">*</span></label>
+            <div class="input-wrap">
+              <input type="email" id="regEmail" placeholder="tu@correo.com" autocomplete="email" />
+              <span class="inp-icon"><i class="fas fa-envelope"></i></span>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label><i class="fas fa-map-marker-alt"></i> Localidad / Barrio</label>
+            <div class="input-wrap">
+              <input type="text" id="regLocalidad" placeholder="Ej: Palpalá, Bº Savio" />
+              <span class="inp-icon"><i class="fas fa-map-marker-alt"></i></span>
+            </div>
+          </div>
+
+          <div class="fg">
+            <label><i class="fas fa-building"></i> Empresa / Comercio (opcional)</label>
+            <div class="input-wrap">
+              <input type="text" id="regEmpresa" placeholder="Ej: Mi Negocio S.A." />
+              <span class="inp-icon"><i class="fas fa-building"></i></span>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="fg" style="margin-bottom:0;">
+              <label><i class="fas fa-lock"></i> Contraseña <span class="req">*</span></label>
+              <div class="input-wrap">
+                <input type="password" id="regPwd" placeholder="Mínimo 6 caracteres" autocomplete="new-password" oninput="checkPwdStrength(this.value)" />
+                <span class="inp-icon toggle-pw" onclick="togglePwd('regPwd', this)"><i class="fas fa-eye"></i></span>
+              </div>
+            </div>
+            <div class="fg" style="margin-bottom:0;">
+              <label><i class="fas fa-lock"></i> Confirmar <span class="req">*</span></label>
+              <div class="input-wrap">
+                <input type="password" id="regPwd2" placeholder="Repetí la contraseña" autocomplete="new-password" />
+                <span class="inp-icon toggle-pw" onclick="togglePwd('regPwd2', this)"><i class="fas fa-eye"></i></span>
+              </div>
+            </div>
+          </div>
+          <!-- Indicador fuerza contraseña -->
+          <div id="pwdStrength" style="display:none; margin-top:7px; height:4px; border-radius:3px; background:var(--gray-ln); overflow:hidden;">
+            <div id="pwdStrengthBar" style="height:100%; width:0%; transition:width 0.3s, background 0.3s;"></div>
+          </div>
+          <div id="pwdStrengthLabel" style="font-size:0.67rem; color:var(--text-m); margin-top:3px;"></div>
+
+          <div class="terms-row" style="margin-top:16px;">
+            <input type="checkbox" id="terminos" />
+            <label for="terminos">Acepto los <span onclick="alert('Términos: Los datos se usan exclusivamente para gestionar tu cuenta y enviarte cotizaciones de SCM Servicios Informáticos.')">términos y condiciones</span> y la política de privacidad de SCM Servicios Informáticos.</label>
+          </div>
+
+          <button type="submit" class="btn-auth" id="btnRegister">
+            <span class="btn-text"><i class="fas fa-user-plus"></i> Crear mi cuenta gratis</span>
+            <i class="fas fa-circle-notch spinner"></i>
+          </button>
+          </form>
+
+          <div class="divider">¿Ya tenés cuenta?</div>
+
+          <button class="btn-auth" style="background:transparent; color:var(--navy-m); box-shadow:none; border: 2px solid var(--gray-ln);" onclick="switchTab('login')">
+            <i class="fas fa-sign-in-alt"></i> Iniciar sesión
+          </button>
+        </div>
+
+        <!-- ══ DASHBOARD (post-login) ══ -->
+        <div id="dashboardSection">
+          <div class="dash-welcome">
+            <div class="dash-avatar" id="dashAvatar">?</div>
+            <div>
+              <div class="dash-name" id="dashName">—</div>
+              <div class="dash-sub" id="dashEmail">—</div>
+              <div class="dash-tag"><i class="fas fa-shield-alt"></i> Cliente registrado SCM</div>
+            </div>
+          </div>
+
+          <div class="dash-grid">
+            <div class="dash-card" onclick="window.open('presupuesto.html','_blank')">
+              <div class="dc-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+              <h4>Pedir Cotización</h4>
+              <p>Solicitá un presupuesto personalizado</p>
+            </div>
+            <div class="dash-card" onclick="window.open('catalogo.html','_blank')">
+              <div class="dc-icon"><i class="fas fa-book-open"></i></div>
+              <h4>Ver Catálogo</h4>
+              <p>Catálogo completo de productos</p>
+            </div>
+            <div class="dash-card" onclick="contactWA()">
+              <div class="dc-icon" style="color:var(--green);"><i class="fab fa-whatsapp"></i></div>
+              <h4>Contactar Equipo</h4>
+              <p>Hablá directo por WhatsApp</p>
+            </div>
+            <div class="dash-card" onclick="window.location.href='index.html#servicios'">
+              <div class="dc-icon"><i class="fas fa-tools"></i></div>
+              <h4>Nuestros Servicios</h4>
+              <p>Explorá todo lo que ofrecemos</p>
+            </div>
+          </div>
+
+          <div class="dash-actions">
+            <button class="btn-dash btn-dash-wa" onclick="contactWA()">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </button>
+            <button class="btn-dash btn-dash-pres" onclick="window.open('presupuesto.html','_blank')">
+              <i class="fas fa-file-invoice-dollar"></i> Cotización
+            </button>
+            <button class="btn-dash btn-dash-out" onclick="doLogout()">
+              <i class="fas fa-sign-out-alt"></i> Salir
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /auth-body -->
+    </div><!-- /auth-box -->
+  </div><!-- /main -->
+
+  <script>
+  /* ═══════════════════════════════════════════
+     UTILIDADES
+  ═══════════════════════════════════════════ */
+
+  // Hash SHA-256 simple en el cliente (para privacidad básica)
+  async function sha256(msg) {
+    const msgBuffer = new TextEncoder().encode(msg);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  // Generar UUID simple
+  function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  // Mostrar alerta
+  function showAlert(id, type, msg) {
+    const el = document.getElementById(id);
+    el.className = `alert ${type} show`;
+    el.querySelector('span').textContent = msg;
+  }
+  function hideAlert(id) {
+    document.getElementById(id).classList.remove('show');
+  }
+
+  /* ═══════════════════════════════════════════
+     TABS
+  ═══════════════════════════════════════════ */
+  function switchTab(tab) {
+    document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
+    document.getElementById('panelLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('panelRegister').classList.toggle('active', tab === 'register');
+    hideAlert('loginAlert'); hideAlert('registerAlert');
+  }
+
+  /* ═══════════════════════════════════════════
+     FUERZA CONTRASEÑA
+  ═══════════════════════════════════════════ */
+  function checkPwdStrength(val) {
+    const bar   = document.getElementById('pwdStrengthBar');
+    const label = document.getElementById('pwdStrengthLabel');
+    const wrap  = document.getElementById('pwdStrength');
+    if (!val) { wrap.style.display='none'; return; }
+    wrap.style.display = 'block';
+    let score = 0;
+    if (val.length >= 6)  score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+    const levels = [
+      { w:'20%', c:'#e63946', t:'Muy débil' },
+      { w:'40%', c:'#f97316', t:'Débil' },
+      { w:'60%', c:'#f59e0b', t:'Regular' },
+      { w:'80%', c:'#22c55e', t:'Fuerte' },
+      { w:'100%',c:'#16a34a', t:'Muy fuerte ✓' },
+    ];
+    const l = levels[Math.min(score, 4)];
+    bar.style.width = l.w; bar.style.background = l.c;
+    label.textContent = l.t; label.style.color = l.c;
+  }
+
+  /* ═══════════════════════════════════════════
+     TOGGLE PASSWORD
+  ═══════════════════════════════════════════ */
+  function togglePwd(inputId, iconEl) {
+    const inp = document.getElementById(inputId);
+    const ico = iconEl.querySelector('i');
+    if (inp.type === 'password') {
+      inp.type = 'text';
+      ico.className = 'fas fa-eye-slash';
+    } else {
+      inp.type = 'password';
+      ico.className = 'fas fa-eye';
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     REGISTRO
+  ═══════════════════════════════════════════ */
+  async function doRegister() {
+    hideAlert('registerAlert');
+    const nombre    = document.getElementById('regNombre').value.trim();
+    const tel       = document.getElementById('regTel').value.trim();
+    const email     = document.getElementById('regEmail').value.trim().toLowerCase();
+    const localidad = document.getElementById('regLocalidad').value.trim();
+    const empresa   = document.getElementById('regEmpresa').value.trim();
+    const pwd       = document.getElementById('regPwd').value;
+    const pwd2      = document.getElementById('regPwd2').value;
+    const terms     = document.getElementById('terminos').checked;
+
+    // Validaciones
+    if (!nombre || !tel || !email || !pwd)
+      return showAlert('registerAlert','error','Completá todos los campos obligatorios (*).');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      return showAlert('registerAlert','error','Ingresá un email válido.');
+    if (pwd.length < 6)
+      return showAlert('registerAlert','error','La contraseña debe tener al menos 6 caracteres.');
+    if (pwd !== pwd2)
+      return showAlert('registerAlert','error','Las contraseñas no coinciden.');
+    if (!terms)
+      return showAlert('registerAlert','error','Debés aceptar los términos y condiciones.');
+
+    const btn = document.getElementById('btnRegister');
+    btn.classList.add('loading'); btn.disabled = true;
+
+    try {
+      // Verificar si el email ya existe
+      const check = await fetch(`tables/clientes_scm?search=${encodeURIComponent(email)}&limit=5`);
+      const checkData = await check.json();
+      const existe = (checkData.data || []).find(u => u.email === email);
+      if (existe) {
+        showAlert('registerAlert','error','Ya existe una cuenta con ese email. ¿Querés iniciar sesión?');
+        btn.classList.remove('loading'); btn.disabled = false;
+        return;
+      }
+
+      // Hashear contraseña
+      const pwdHash = await sha256(pwd + email); // salt con el email
+
+      // Crear cliente en la base de datos
+      const res = await fetch('tables/clientes_scm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id:                  uuid(),
+          nombre:              nombre,
+          email:               email,
+          telefono:            tel,
+          localidad:           localidad,
+          empresa:             empresa,
+          password_hash:       pwdHash,
+          activo:              true,
+          notas:               '',
+          ultimo_login:        new Date().toISOString(),
+          servicios_contratados: [],
+        }),
+      });
+
+      if (!res.ok) throw new Error('Error al crear cuenta');
+      const cliente = await res.json();
+
+      // Guardar sesión local
+      saveSession({ id: cliente.id, nombre, email, telefono: tel, localidad, empresa });
+      showDashboard({ nombre, email });
+      showAlert('registerAlert','success','¡Cuenta creada exitosamente!');
+
+    } catch (err) {
+      showAlert('registerAlert','error','Error al crear la cuenta. Intentá de nuevo.');
+    } finally {
+      btn.classList.remove('loading'); btn.disabled = false;
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     LOGIN
+  ═══════════════════════════════════════════ */
+  async function doLogin() {
+    hideAlert('loginAlert');
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const pwd   = document.getElementById('loginPwd').value;
+
+    if (!email || !pwd)
+      return showAlert('loginAlert','error','Completá tu email y contraseña.');
+
+    const btn = document.getElementById('btnLogin');
+    btn.classList.add('loading'); btn.disabled = true;
+
+    try {
+      // Buscar usuario por email
+      const res = await fetch(`tables/clientes_scm?search=${encodeURIComponent(email)}&limit=10`);
+      const data = await res.json();
+      const usuario = (data.data || []).find(u => u.email === email);
+
+      if (!usuario) {
+        showAlert('loginAlert','error','No encontramos una cuenta con ese email.');
+        btn.classList.remove('loading'); btn.disabled = false;
+        return;
+      }
+
+      // Verificar contraseña
+      const pwdHash = await sha256(pwd + email);
+      if (pwdHash !== usuario.password_hash) {
+        showAlert('loginAlert','error','Contraseña incorrecta. Verificá y volvé a intentar.');
+        btn.classList.remove('loading'); btn.disabled = false;
+        return;
+      }
+
+      // Actualizar último login
+      await fetch(`tables/clientes_scm/${usuario.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ultimo_login: new Date().toISOString() }),
+      });
+
+      // Guardar sesión y mostrar dashboard
+      saveSession({ id: usuario.id, nombre: usuario.nombre, email: usuario.email, telefono: usuario.telefono, localidad: usuario.localidad, empresa: usuario.empresa });
+      showDashboard({ nombre: usuario.nombre, email: usuario.email });
+
+    } catch (err) {
+      showAlert('loginAlert','error','Error al iniciar sesión. Intentá de nuevo.');
+    } finally {
+      btn.classList.remove('loading'); btn.disabled = false;
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     SESIÓN LOCAL
+  ═══════════════════════════════════════════ */
+  function saveSession(data) {
+    sessionStorage.setItem('scm_session', JSON.stringify(data));
+  }
+  function getSession() {
+    try { return JSON.parse(sessionStorage.getItem('scm_session')); } catch { return null; }
+  }
+  function clearSession() {
+    sessionStorage.removeItem('scm_session');
+  }
+
+  /* ═══════════════════════════════════════════
+     DASHBOARD
+  ═══════════════════════════════════════════ */
+  function showDashboard(user) {
+    // Ocultar tabs y panels, mostrar dashboard
+    document.querySelector('.auth-tabs').style.display = 'none';
+    document.getElementById('panelLogin').classList.remove('active');
+    document.getElementById('panelRegister').classList.remove('active');
+    const dash = document.getElementById('dashboardSection');
+    dash.classList.add('show');
+
+    // Iniciales del avatar
+    const iniciales = user.nombre.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+    document.getElementById('dashAvatar').textContent = iniciales;
+    document.getElementById('dashName').textContent = '¡Hola, ' + user.nombre.split(' ')[0] + '!';
+    document.getElementById('dashEmail').textContent = user.email;
+  }
+
+  function doLogout() {
+    clearSession();
+    document.querySelector('.auth-tabs').style.display = '';
+    document.getElementById('dashboardSection').classList.remove('show');
+    document.getElementById('panelLogin').classList.add('active');
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPwd').value = '';
+    hideAlert('loginAlert');
+  }
+
+  function contactWA() {
+    const session = getSession();
+    const nombre = session?.nombre || 'cliente';
+    const msg = encodeURIComponent('Hola equipo SCM! Soy ' + nombre + ', cliente registrado. Quisiera consultar sobre sus servicios.');
+    const TEAM = [
+      { name: 'Sergio',   num: '5493884212364' },
+      { name: 'Misael',   num: '5493884845088' },
+      { name: 'Carolina', num: '5493885191977' },
+    ];
+    TEAM.forEach((m, i) => {
+      setTimeout(() => {
+        window.open(`https://wa.me/${m.num}?text=${msg}`, '_blank');
+      }, i * 900);
+    });
+  }
+
+  function forgotPassword() {
+    const email = document.getElementById('loginEmail').value.trim();
+    if (email) {
+      const msg = encodeURIComponent('Hola SCM! Olvidé mi contraseña del portal. Mi email registrado es: ' + email);
+      const TEAM = [
+        { name: 'Sergio',   num: '5493884212364' },
+        { name: 'Misael',   num: '5493884845088' },
+        { name: 'Carolina', num: '5493885191977' },
+      ];
+      TEAM.forEach((m, i) => {
+        setTimeout(() => {
+          window.open(`https://wa.me/${m.num}?text=${msg}`, '_blank');
+        }, i * 900);
+      });
+    } else {
+      showAlert('loginAlert','info','Ingresá tu email y luego hacé clic en "¿Olvidaste tu contraseña?"');
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     AUTO-LOGIN si hay sesión guardada
+  ═══════════════════════════════════════════ */
+  window.addEventListener('DOMContentLoaded', () => {
+    const session = getSession();
+    if (session?.nombre) {
+      showDashboard(session);
+    }
+  });
+  </script>
+</body>
+</html>

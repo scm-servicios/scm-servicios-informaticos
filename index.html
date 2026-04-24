@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SCM Servicios Informáticos — Instalación de cámaras de seguridad, soporte técnico, redes, hardware, software e IA aplicada a la seguridad electrónica. Palpalá, Jujuy, Argentina." />
+  <title>SCM Servicios Informáticos | Palpalá, Jujuy</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+
+  <!-- Estilos principales -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#inicio" class="nav-logo">
+        <img src="images/logo-scm-dark.png" alt="SCM Servicios Informáticos" class="nav-logo-img" />
+      </a>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="#servicios" class="nav-link">Servicios</a></li>
+        <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+        <li><a href="#marcas" class="nav-link">Marcas</a></li>
+        <li><a href="#catalogo" class="nav-link">Catálogo</a></li>
+        <li><a href="#equipo" class="nav-link">Equipo</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
+        <li><a href="presupuesto.html" class="nav-link nav-link-budget" target="_blank"><i class="fas fa-file-invoice-dollar"></i> Presupuesto</a></li>
+        <li><a href="clientes.html" class="nav-link nav-link-portal"><i class="fas fa-user-circle"></i> Mi cuenta</a></li>
+        <li><a href="#contacto" class="nav-btn">Contactanos</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="inicio">
+    <!-- Canvas para partículas de circuito -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Logo marca de agua centrado detrás del texto -->
+    <div class="hero-watermark">
+      <img src="images/logo-scm-dark.png" alt="" aria-hidden="true" class="hero-wm-img" />
+    </div>
+
+    <div class="hero-content fade-in">
+      <div class="hero-badge">
+        <i class="fas fa-shield-alt"></i>
+        Técnicos Certificados · Hikvision &amp; Dahua
+      </div>
+      <h1 class="hero-title">
+        SCM <span class="accent">Servicios</span><br />Informáticos
+      </h1>
+      <p class="hero-subtitle">
+        Seguridad Electrónica &nbsp;·&nbsp; Hardware &nbsp;·&nbsp; Software &nbsp;·&nbsp; Redes
+      </p>
+      <p class="hero-desc">
+        Instalación profesional de cámaras, soporte técnico y venta de insumos tecnológicos<br />
+        en <strong>Palpalá, Jujuy</strong> — con tecnología de última generación.
+      </p>
+      <div class="hero-buttons">
+        <a href="#servicios" class="btn btn-primary">
+          <i class="fas fa-th-large"></i> Ver Servicios
+        </a>
+        <a href="#contacto" class="btn btn-outline">
+          <i class="fas fa-headset"></i> Contactanos ahora
+        </a>
+        <a href="presupuesto.html" class="btn btn-budget" target="_blank">
+          <i class="fas fa-file-invoice-dollar"></i> Hacer Presupuesto
+        </a>
+      </div>
+
+      <!-- Estadísticas rápidas bajo los botones -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">200+</span>
+          <span class="hero-stat-label">Instalaciones</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">5+</span>
+          <span class="hero-stat-label">Años de exp.</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">7</span>
+          <span class="hero-stat-label">Marcas oficiales</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">24/7</span>
+          <span class="hero-stat-label">Soporte</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <a href="#servicios" aria-label="Bajar">
+        <div class="scroll-icon"><i class="fas fa-chevron-down"></i></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== TICKER SUPERIOR (novedad) ========== -->
+  <div class="news-ticker">
+    <div class="ticker-track">
+      <span><i class="fas fa-bolt"></i> Nuevos equipos con IA incorporada disponibles</span>
+      <span><i class="fas fa-shield-alt"></i> Técnicos certificados Hikvision y Dahua</span>
+      <span><i class="fas fa-map-marker-alt"></i> Cobertura en toda la provincia de Jujuy</span>
+      <span><i class="fas fa-star"></i> Asesoramiento gratuito sin compromiso</span>
+      <span><i class="fas fa-camera"></i> Instalación profesional con garantía</span>
+      <span><i class="fas fa-bolt"></i> Nuevos equipos con IA incorporada disponibles</span>
+      <span><i class="fas fa-shield-alt"></i> Técnicos certificados Hikvision y Dahua</span>
+      <span><i class="fas fa-map-marker-alt"></i> Cobertura en toda la provincia de Jujuy</span>
+      <span><i class="fas fa-star"></i> Asesoramiento gratuito sin compromiso</span>
+      <span><i class="fas fa-camera"></i> Instalación profesional con garantía</span>
+    </div>
+  </div>
+
+  <!-- ========== SERVICIOS ========== -->
+  <section class="section section-dark" id="servicios">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Lo que hacemos</span>
+        <h2>Nuestros <span class="accent">Servicios</span></h2>
+        <p>Soluciones integrales de seguridad electrónica y tecnología para hogares y empresas.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <h3>Instalación de Cámaras</h3>
+          <p>Instalación profesional de sistemas CCTV, cámaras IP, analógicas y 4K. Configuración remota y monitoreo 24/7.</p>
+          <ul class="service-tags">
+            <li>CCTV</li><li>IP</li><li>4K</li><li>HD</li>
+          </ul>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>Soporte y Tendido de Redes</h3>
+          <p>Diseño e instalación de redes estructuradas, WiFi empresarial, switches, routers y cableado UTP/FTP profesional.</p>
+          <ul class="service-tags">
+            <li>LAN</li><li>WiFi</li><li>Switches</li><li>UTP</li>
+          </ul>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <i class="fas fa-laptop"></i>
+          </div>
+          <h3>Venta de Hardware y Software</h3>
+          <p>Insumos tecnológicos, componentes, periféricos y licencias de software originales con garantía y soporte post-venta.</p>
+          <ul class="service-tags">
+            <li>Hardware</li><li>Insumos</li><li>Licencias</li>
+          </ul>
+        </div>
+
+        <div class="service-card fade-in featured">
+          <div class="service-badge">Nuevo</div>
+          <div class="service-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>IA Aplicada a Seguridad</h3>
+          <p>Sistemas inteligentes con análisis de video, detección facial, reconocimiento de patrones y alertas automáticas en tiempo real.</p>
+          <ul class="service-tags">
+            <li>Detección Facial</li><li>Alertas IA</li><li>Análisis Video</li>
+          </ul>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <h3>Soporte Técnico General</h3>
+          <p>Mantenimiento preventivo y correctivo, diagnóstico de fallas, reparación de equipos y actualizaciones de firmware.</p>
+          <ul class="service-tags">
+            <li>Mantenimiento</li><li>Diagnóstico</li><li>Reparación</li>
+          </ul>
+        </div>
+
+        <div class="service-card fade-in">
+          <div class="service-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Asesoramiento Tecnológico</h3>
+          <p>Consultoría personalizada para el diseño de proyectos de seguridad electrónica adaptados a cada necesidad y presupuesto.</p>
+          <ul class="service-tags">
+            <li>Consultoría</li><li>Proyectos</li><li>Presupuestos</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== POR QUÉ ELEGIRNOS ========== -->
+  <section class="section section-light" id="nosotros">
+    <div class="container">
+      <div class="why-wrapper">
+        <div class="why-text fade-in">
+          <span class="section-tag">¿Por qué elegirnos?</span>
+          <h2>Profesionales <span class="accent">certificados</span> a tu servicio</h2>
+          <p class="why-intro">
+            Somos un equipo apasionado por la tecnología con sede en <strong>Palpalá, Jujuy</strong>.
+            Combinamos experiencia técnica, certificaciones oficiales y las últimas innovaciones en
+            inteligencia artificial para brindarte la mejor solución en seguridad electrónica.
+          </p>
+          <div class="why-list">
+            <div class="why-item">
+              <div class="why-check"><i class="fas fa-check"></i></div>
+              <div>
+                <strong>Técnicos Certificados</strong>
+                <span>Oficialmente certificados por Hikvision y Dahua</span>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-check"><i class="fas fa-check"></i></div>
+              <div>
+                <strong>Más de 5 años de experiencia</strong>
+                <span>Cientos de instalaciones exitosas en toda la región</span>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-check"><i class="fas fa-check"></i></div>
+              <div>
+                <strong>Atención personalizada</strong>
+                <span>Cada proyecto es único, adaptamos la solución a vos</span>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-check"><i class="fas fa-check"></i></div>
+              <div>
+                <strong>Cobertura en toda la región</strong>
+                <span>Servicio en toda la provincia de Jujuy y alrededores</span>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-check"><i class="fas fa-check"></i></div>
+              <div>
+                <strong>Tecnología de última generación</strong>
+                <span>Trabajamos con las marcas líderes del mercado</span>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-check"><i class="fas fa-check"></i></div>
+              <div>
+                <strong>Soporte post-instalación</strong>
+                <span>Te acompañamos después de cada instalación</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-stats fade-in">
+          <div class="stat-card">
+            <div class="stat-number accent-text">5+</div>
+            <div class="stat-label">Años de<br />Experiencia</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number accent-text">200+</div>
+            <div class="stat-label">Instalaciones<br />Realizadas</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number accent-text">3</div>
+            <div class="stat-label">Técnicos<br />Certificados</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number accent-text">7</div>
+            <div class="stat-label">Marcas<br />Oficiales</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARCAS ========== -->
+  <section class="section section-dark" id="marcas">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Partners oficiales</span>
+        <h2>Marcas que <span class="accent">Representamos</span></h2>
+        <p>Trabajamos exclusivamente con marcas líderes del mercado, garantizando calidad y respaldo técnico.</p>
+      </div>
+
+      <div class="brands-grid fade-in">
+
+        <!-- Hikvision -->
+        <div class="brand-card">
+          <div class="brand-logo-area">
+            <div class="brand-img-wrap" style="background:#fff;">
+              <img src="images/logo-hikvision.png" alt="Hikvision" class="brand-real-logo" />
+            </div>
+          </div>
+          <div class="brand-name">Hikvision</div>
+          <div class="brand-desc">Líder mundial en videovigilancia</div>
+        </div>
+
+        <!-- Dahua -->
+        <div class="brand-card">
+          <div class="brand-logo-area">
+            <div class="brand-img-wrap" style="background:#fff;">
+              <img src="images/logo-dahua.png" alt="Dahua Technology" class="brand-real-logo" />
+            </div>
+          </div>
+          <div class="brand-name">Dahua</div>
+          <div class="brand-desc">Soluciones integrales de seguridad</div>
+        </div>
+
+        <!-- IMOU -->
+        <div class="brand-card">
+          <div class="brand-logo-area">
+            <div class="brand-img-wrap" style="background:#fff;">
+              <img src="images/logo-imou.png" alt="IMOU" class="brand-real-logo" />
+            </div>
+          </div>
+          <div class="brand-name">IMOU</div>
+          <div class="brand-desc">Seguridad inteligente para el hogar</div>
+        </div>
+
+        <!-- EZVIZ -->
+        <div class="brand-card">
+          <div class="brand-logo-area">
+            <div class="brand-img-wrap" style="background:#fff;">
+              <img src="images/logo-ezviz.png" alt="EZVIZ" class="brand-real-logo" />
+            </div>
+          </div>
+          <div class="brand-name">EZVIZ</div>
+          <div class="brand-desc">Vigilancia inteligente y conectada</div>
+        </div>
+
+        <!-- TP-Link -->
+        <div class="brand-card">
+          <div class="brand-logo-area">
+            <div class="brand-img-wrap" style="background:#fff;">
+              <img src="images/logo-tplink.png" alt="TP-Link" class="brand-real-logo" />
+            </div>
+          </div>
+          <div class="brand-name">TP-Link</div>
+          <div class="brand-desc">Redes y conectividad</div>
+        </div>
+
+        <!-- Garnet -->
+        <div class="brand-card">
+          <div class="brand-logo-area">
+            <div class="brand-img-wrap" style="background:#fff;">
+              <img src="images/logo-garnet.png" alt="Garnet Technology" class="brand-real-logo" />
+            </div>
+          </div>
+          <div class="brand-name">Garnet</div>
+          <div class="brand-desc">Alarmas y sistemas de alerta</div>
+        </div>
+
+        <!-- PPA -->
+        <div class="brand-card">
+          <div class="brand-logo-area">
+            <div class="brand-img-wrap" style="background:#f97316; border-radius: 12px;">
+              <img src="images/logo-ppa.png" alt="PPA" class="brand-real-logo" />
+            </div>
+          </div>
+          <div class="brand-name">PPA</div>
+          <div class="brand-desc">Control de accesos avanzado</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== EQUIPO ========== -->
+  <section class="section section-light" id="equipo">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Nuestro equipo</span>
+        <h2>Las personas detrás de <span class="accent">SCM</span></h2>
+        <p>Un equipo humano, capacitado y comprometido con brindarte la mejor solución tecnológica.</p>
+      </div>
+
+      <div class="team-grid">
+
+        <!-- Misael -->
+        <div class="team-card fade-in">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="team-social">
+              <a href="https://wa.me/5493884845088" target="_blank" aria-label="WhatsApp Misael">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+          <div class="team-info">
+            <h3>Misael</h3>
+            <span class="team-role">Técnico Instalador &amp; Soporte General</span>
+            <p class="team-desc">Especialista en instalación de sistemas de seguridad, soporte técnico y diseño de redes. Con experiencia en proyectos residenciales y comerciales.</p>
+            <div class="team-skills">
+              <span><i class="fas fa-video"></i> Instalación CCTV</span>
+              <span><i class="fas fa-network-wired"></i> Redes</span>
+              <span><i class="fas fa-tools"></i> Soporte Técnico</span>
+              <span><i class="fas fa-comments"></i> Asesoramiento</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carolina -->
+        <div class="team-card fade-in featured-card">
+          <div class="team-avatar">
+            <div class="avatar-placeholder female">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="team-social">
+              <a href="https://wa.me/5493885191977" target="_blank" aria-label="WhatsApp Carolina">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+          <div class="team-info">
+            <h3>Carolina</h3>
+            <span class="team-role accent-role">Especialista en IA &amp; Seguridad Electrónica</span>
+            <p class="team-desc">Líder en la integración de inteligencia artificial a sistemas de seguridad electrónica. Experta en análisis inteligente de video, automatización y alertas en tiempo real.</p>
+            <div class="team-skills">
+              <span><i class="fas fa-robot"></i> Inteligencia Artificial</span>
+              <span><i class="fas fa-brain"></i> Análisis de Video</span>
+              <span><i class="fas fa-bell"></i> Alertas Automáticas</span>
+              <span><i class="fas fa-comments"></i> Asesoramiento</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sergio -->
+        <div class="team-card fade-in">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="team-social">
+              <a href="https://wa.me/5493884212364" target="_blank" aria-label="WhatsApp Sergio">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+          <div class="team-info">
+            <h3>Sergio</h3>
+            <span class="team-role">Técnico Instalador &amp; Soporte General</span>
+            <p class="team-desc">Técnico con amplia experiencia en instalación de cámaras de seguridad, configuración de redes y soporte técnico integral para hogares y empresas.</p>
+            <div class="team-skills">
+              <span><i class="fas fa-camera"></i> Cámaras IP/CCTV</span>
+              <span><i class="fas fa-network-wired"></i> Redes</span>
+              <span><i class="fas fa-tools"></i> Soporte Técnico</span>
+              <span><i class="fas fa-comments"></i> Asesoramiento</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACTO ========== -->
+  <section class="section section-dark" id="contacto">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Hablemos</span>
+        <h2>Ponete en <span class="accent">Contacto</span></h2>
+        <p>Estamos listos para asesorarte. Escribinos o llamanos sin compromiso.</p>
+      </div>
+
+      <div class="contact-wrapper">
+
+        <!-- Info de contacto -->
+        <div class="contact-info fade-in">
+
+          <div class="contact-location">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>Ubicación</strong>
+              <span>Barrio Gral. Savio — Leandro Alem 263, Palpalá, Jujuy</span>
+            </div>
+          </div>
+
+          <div class="contact-email">
+            <i class="fas fa-envelope"></i>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:scmserviciosinformaticos01@gmail.com">scmserviciosinformaticos01@gmail.com</a>
+            </div>
+          </div>
+
+          <h4 class="contact-team-title">Contactar a nuestro equipo</h4>
+
+          <!-- Misael -->
+          <div class="contact-person">
+            <div class="contact-person-info">
+              <div class="contact-avatar"><i class="fas fa-user"></i></div>
+              <div>
+                <strong>Misael</strong>
+                <span>Técnico Instalador</span>
+                <a href="tel:+5493884845088">3884-845088</a>
+              </div>
+            </div>
+            <a href="https://wa.me/5493884845088?text=Hola%20Misael!%20Vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultar%20sobre%20sus%20servicios." target="_blank" class="wa-btn" aria-label="WhatsApp Misael">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+          </div>
+
+          <!-- Carolina -->
+          <div class="contact-person featured-person">
+            <div class="contact-person-info">
+              <div class="contact-avatar ai-avatar"><i class="fas fa-user"></i></div>
+              <div>
+                <strong>Carolina</strong>
+                <span>Especialista IA &amp; Seguridad</span>
+                <a href="tel:+5493885191977">3885-191977</a>
+              </div>
+            </div>
+            <a href="https://wa.me/5493885191977?text=Hola%20Carolina!%20Vi%20su%20p%C3%A1gina%20web%20y%20quisiera%20consultar%20sobre%20sus%20servicios%20de%20IA." target="_blank" class="wa-btn" aria-label="WhatsApp Carolina">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+          </div>
+
+          <!-- Sergio -->
+          <div class="contact-person">
+            <div class="contact-person-info">
+              <div class="contact-avatar"><i class="fas fa-user"></i></div>
+              <div>
+                <strong>Sergio</strong>
+                <span>Técnico Instalador</span>
+                <a href="tel:+5493884212364">3884-212364</a>
+              </div>
+            </div>
+            <a href="https://wa.me/5493884212364?text=Hola%20Sergio!%20Vi%20su%20página%20web%20y%20quisiera%20consultar%20sobre%20sus%20servicios." target="_blank" class="wa-btn" aria-label="WhatsApp Sergio">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+          </div>
+
+          <!-- Mapa -->
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.4!2d-65.2144!3d-24.2569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x941b014e3d72c5c3%3A0x5d71a9e91f4b8ef8!2sPalpal%C3%A1%2C%20Jujuy!5e0!3m2!1ses!2sar!4v1710000000000"
+              width="100%"
+              height="200"
+              style="border:0; border-radius:12px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Mapa Palpalá Jujuy">
+            </iframe>
+          </div>
+        </div>
+
+        <!-- Formulario -->
+        <div class="contact-form-wrap fade-in">
+          <form class="contact-form" id="contactForm">
+            <h3>Envianos un mensaje</h3>
+            <p>Te respondemos a la brevedad. Sin compromiso.</p>
+
+            <div class="form-group">
+              <label for="nombre"><i class="fas fa-user"></i> Tu nombre</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email"><i class="fas fa-envelope"></i> Email</label>
+              <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="telefono"><i class="fas fa-phone"></i> Teléfono (opcional)</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="Ej: 388-4123456" />
+            </div>
+
+            <div class="form-group">
+              <label for="servicio"><i class="fas fa-list"></i> Servicio de interés</label>
+              <select id="servicio" name="servicio">
+                <option value="">Seleccioná un servicio</option>
+                <option value="camaras">Instalación de Cámaras</option>
+                <option value="redes">Soporte y Tendido de Redes</option>
+                <option value="hardware">Venta de Hardware/Software</option>
+                <option value="ia">IA Aplicada a Seguridad</option>
+                <option value="soporte">Soporte Técnico General</option>
+                <option value="asesoramiento">Asesoramiento Tecnológico</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="mensaje"><i class="fas fa-comment"></i> Mensaje</label>
+              <textarea id="mensaje" name="mensaje" rows="4" placeholder="Contanos en qué podemos ayudarte..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              <i class="fas fa-paper-plane"></i> Enviar Mensaje
+            </button>
+
+            <div class="form-success" id="formSuccess">
+              <i class="fas fa-check-circle"></i>
+              ¡Mensaje enviado al equipo! Sergio, Misael y Carolina lo recibieron por WhatsApp. Te contactaremos a la brevedad.
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CÓMO TRABAJAMOS ========== -->
+  <section class="section section-dark" id="como-trabajamos">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Nuestro proceso</span>
+        <h2>¿Cómo <span class="accent">trabajamos</span>?</h2>
+        <p>Un proceso simple, transparente y eficiente para que tu proyecto de seguridad sea un éxito.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card fade-in">
+          <div class="step-number">01</div>
+          <div class="step-icon"><i class="fas fa-comments"></i></div>
+          <h3>Consulta Inicial</h3>
+          <p>Nos contactás y te asesoramos gratuitamente. Analizamos tus necesidades y el espacio a proteger.</p>
+        </div>
+        <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-card fade-in">
+          <div class="step-number">02</div>
+          <div class="step-icon"><i class="fas fa-drafting-compass"></i></div>
+          <h3>Diseño del Proyecto</h3>
+          <p>Elaboramos un proyecto personalizado con los equipos más adecuados y un presupuesto detallado.</p>
+        </div>
+        <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-card fade-in">
+          <div class="step-number">03</div>
+          <div class="step-icon"><i class="fas fa-tools"></i></div>
+          <h3>Instalación</h3>
+          <p>Nuestros técnicos certificados realizan la instalación profesional con cables prolijos y configuración completa.</p>
+        </div>
+        <div class="step-connector"><i class="fas fa-chevron-right"></i></div>
+        <div class="step-card fade-in">
+          <div class="step-number">04</div>
+          <div class="step-icon"><i class="fas fa-graduation-cap"></i></div>
+          <h3>Capacitación y Soporte</h3>
+          <p>Te enseñamos a usar el sistema y te brindamos soporte continuo post-instalación.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TESTIMONIOS ========== -->
+  <section class="section section-light" id="testimonios">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Lo que dicen nuestros clientes</span>
+        <h2>Testimonios <span class="accent">reales</span></h2>
+        <p>La satisfacción de nuestros clientes es nuestra mejor carta de presentación.</p>
+      </div>
+      <div class="testimonials-grid">
+
+        <!-- Testimonio 1 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Excelente servicio. Instalaron 6 cámaras en mi comercio en un solo día. Todo quedó perfecto, la imagen es nítida y el acceso remoto funciona de maravilla. SCM Servicios de primera calidad."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RC</div>
+            <div>
+              <strong>Roberto C.</strong>
+              <span>Comercio — Palpalá</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 2 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Muy profesionales. Me asesoraron muy bien, me explicaron todo y el presupuesto fue justo. Recomiendo SCM Servicios Informáticos sin dudarlo. El equipo es increíble."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">ML</div>
+            <div>
+              <strong>María L.</strong>
+              <span>Vivienda familiar — Jujuy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 3 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Instalaron el sistema de red y las cámaras en nuestra empresa. Trabajo prolijo, puntual y con muy buen soporte posterior. 100% recomendados. SCM es confiable."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">JP</div>
+            <div>
+              <strong>Juan P.</strong>
+              <span>Empresa — San Salvador de Jujuy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 4 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Llamé a SCM por un problema de red en mi negocio y en menos de 2 horas ya lo habían solucionado. Muy rápidos, eficientes y con un precio muy accesible. Quedé muy conforme."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">AG</div>
+            <div>
+              <strong>Alejandro G.</strong>
+              <span>Almacén — Bº Gral. Savio, Palpalá</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 5 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Contratamos a SCM para el sistema de alarma y acceso de nuestra planta. Trabajo de nivel profesional, equipos de primera marca y excelente atención post-instalación. Muy recomendables."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">VR</div>
+            <div>
+              <strong>Verónica R.</strong>
+              <span>Planta industrial — Palpalá</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 6 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"SCM nos instaló las cámaras Hikvision en el country. La calidad de imagen es impresionante y la app del celular funciona perfecta. Carolina nos explicó todo sobre el sistema de IA. ¡Genios!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">DM</div>
+            <div>
+              <strong>Diego M.</strong>
+              <span>Complejo residencial — Jujuy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 7 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Me robaron dos veces y con SCM instalamos un sistema completo con cámaras Dahua y alarma. Desde entonces, ningún problema. Le daría 10 estrellas si pudiera. Gracias equipo SCM."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">SH</div>
+            <div>
+              <strong>Sandra H.</strong>
+              <span>Vivienda — Palpalá</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 8 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Pedí cotización por WhatsApp y en 10 minutos ya tenía el presupuesto. En 2 días vinieron a instalar todo. Misael muy profesional, explicó cada detalle. SCM Servicios de 10 puntos."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">FM</div>
+            <div>
+              <strong>Facundo M.</strong>
+              <span>Local gastronómico — Palpalá</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 9 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"El cableado de red que hicieron en nuestra oficina quedó impecable. Sergio es muy prolijo y ordenado en su trabajo. La conexión mejoró notablemente. Sin duda volvemos a llamarlos."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">LB</div>
+            <div>
+              <strong>Laura B.</strong>
+              <span>Oficina administrativa — San Salvador</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 10 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"SCM nos ayudó a implementar reconocimiento facial en la entrada de nuestra fábrica. Carolina explicó todo el proceso con paciencia y el resultado superó nuestras expectativas. ¡Inversión que vale la pena!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">HR</div>
+            <div>
+              <strong>Héctor R.</strong>
+              <span>Fábrica textil — Palpalá</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 11 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Contraté a SCM para instalar internet y cámaras en mi negocio de ropa. Misael llegó puntual, trabajó limpio y explicó cómo usar la app del teléfono. Ahora monitoreo todo desde donde estoy. Excelente servicio."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">NT</div>
+            <div>
+              <strong>Natalia T.</strong>
+              <span>Comercio de indumentaria — Alto Comedero</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 12 -->
+        <div class="testimonial-card fade-in">
+          <div class="testimonial-stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Tuve un problema con el disco rígido de mi PC y SCM lo solucionó en el día. Recuperaron mis archivos y me instalaron uno nuevo de mayor capacidad. Muy buenos precios y atención top. 100% recomendados."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">CE</div>
+            <div>
+              <strong>Carlos E.</strong>
+              <span>Particular — San Salvador de Jujuy</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CATÁLOGO ========== -->
+  <section class="section section-light" id="catalogo">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Nuestros productos</span>
+        <h2>Catálogo de <span class="accent">Productos</span></h2>
+        <p>Insumos de seguridad electrónica, hardware y accesorios. Consultanos por precio y disponibilidad.</p>
+      </div>
+
+      <!-- Filtros de categoría -->
+      <div class="catalog-filters fade-in">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="camaras">Cámaras</button>
+        <button class="filter-btn" data-filter="redes">Redes</button>
+        <button class="filter-btn" data-filter="accesorios">Accesorios</button>
+        <button class="filter-btn" data-filter="grabacion">Grabación</button>
+      </div>
+
+      <div class="catalog-grid fade-in" id="catalogGrid">
+
+        <!-- Cámara 1 -->
+        <div class="product-card" data-cat="camaras">
+          <div class="product-img">
+            <img src="images/prod-cam-bullet-hikvision.jpg" alt="Cámara Bullet 2MP Hikvision" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-video"></i></div>
+            <div class="product-badge-brand">Hikvision</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Cámaras</span>
+            <h4>Cámara Bullet 2MP HD</h4>
+            <p>Cámara CCTV analógica 1080p, visión nocturna 30m, exterior IP67.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20la%20C%C3%A1mara%20Bullet%202MP%20HD.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cámara 2 -->
+        <div class="product-card" data-cat="camaras">
+          <div class="product-img">
+            <img src="images/prod-cam-dome-dahua.jpg" alt="Cámara IP Domo Dahua 4MP" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-camera"></i></div>
+            <div class="product-badge-brand">Dahua</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Cámaras</span>
+            <h4>Cámara IP Domo 4MP</h4>
+            <p>Cámara IP PoE 4 Megapixeles, H.265+, visión nocturna color, interior/exterior.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20la%20C%C3%A1mara%20IP%20Domo%204MP.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cámara 3 -->
+        <div class="product-card" data-cat="camaras">
+          <div class="product-img">
+            <img src="images/prod-cam-imou-cruiser.jpg" alt="Cámara WiFi IMOU" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-eye"></i></div>
+            <div class="product-badge-brand">IMOU</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Cámaras</span>
+            <h4>Cámara WiFi Inteligente 3MP</h4>
+            <p>Cámara WiFi con IA, detección de personas, seguimiento automático, visión nocturna.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20la%20C%C3%A1mara%20WiFi%20Inteligente%203MP.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- DVR/NVR -->
+        <div class="product-card" data-cat="grabacion">
+          <div class="product-img">
+            <img src="images/prod-nvr-dahua.jpg" alt="DVR 8 Canales Hikvision" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-hdd"></i></div>
+            <div class="product-badge-brand">Hikvision</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Grabación</span>
+            <h4>DVR 8 Canales Full HD</h4>
+            <p>Grabador digital 8 canales, H.265, acceso remoto, compatible con cámaras 1080p.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20el%20DVR%208%20Canales.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Switch PoE -->
+        <div class="product-card" data-cat="redes">
+          <div class="product-img">
+            <img src="images/prod-switch-poe.jpg" alt="Switch PoE TP-Link" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-network-wired"></i></div>
+            <div class="product-badge-brand">TP-Link</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Redes</span>
+            <h4>Switch PoE 8 Puertos</h4>
+            <p>Switch no administrable 8 puertos PoE+ 802.3at, ideal para cámaras IP.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20el%20Switch%20PoE%208%20Puertos.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cable UTP -->
+        <div class="product-card" data-cat="redes">
+          <div class="product-img">
+            <img src="images/prod-switch-tplink.jpg" alt="Cable UTP Cat6" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-plug"></i></div>
+            <div class="product-badge-brand">Genérico</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Redes</span>
+            <h4>Cable UTP Cat5e / Cat6 (rollo)</h4>
+            <p>Rollo 305 metros cable UTP categoría 5e o 6, certificado, para redes y CCTV.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20el%20Cable%20UTP.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fuente de alimentación -->
+        <div class="product-card" data-cat="accesorios">
+          <div class="product-img">
+            <img src="images/prod-alarma-garnet.jpg" alt="Fuente regulada 12V" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-bolt"></i></div>
+            <div class="product-badge-brand">Universal</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Accesorios</span>
+            <h4>Fuente Regulada 12V para Cámaras</h4>
+            <p>Fuente de alimentación regulada 12V 5A/10A para centrales de cámaras de seguridad.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20la%20Fuente%2012V.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disco duro -->
+        <div class="product-card" data-cat="grabacion">
+          <div class="product-img">
+            <img src="images/prod-hdd-purple.jpg" alt="Disco Duro WD Purple para CCTV" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-database"></i></div>
+            <div class="product-badge-brand">Seagate / WD</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Grabación</span>
+            <h4>Disco Duro para Videovigilancia</h4>
+            <p>HDD 1TB / 2TB / 4TB especializado para CCTV, ciclos de escritura continua 24/7.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20el%20Disco%20Duro%20para%20CCTV.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cámara Hikvision Dome 4MP -->
+        <div class="product-card" data-cat="camaras">
+          <div class="product-img">
+            <img src="images/prod-cam-hikvision-dome4mp.jpg" alt="Cámara IP Dome Hikvision 4MP AcuSense" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-camera"></i></div>
+            <div class="product-badge-brand">Hikvision</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Cámaras</span>
+            <h4>Cámara IP Domo 4MP AcuSense</h4>
+            <p>Dome IP 4MP AcuSense, detección IA de personas y vehículos, visión nocturna, IP67.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20la%20C%C3%A1mara%20IP%20Domo%204MP%20AcuSense.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- NVR Dahua 8 canales -->
+        <div class="product-card" data-cat="grabacion">
+          <div class="product-img">
+            <img src="images/prod-nvr-dahua-8ch.jpg" alt="NVR Dahua 8 canales PoE" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-server"></i></div>
+            <div class="product-badge-brand">Dahua</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Grabación</span>
+            <h4>NVR 8 Canales PoE Dahua</h4>
+            <p>Grabador NVR 8 canales con PoE integrado, resolución 4K, H.265+, acceso remoto vía app.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884845088?text=Hola!%20Me%20interesa%20el%20NVR%208%20Canales%20PoE%20Dahua.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel de alarma Garnet -->
+        <div class="product-card" data-cat="accesorios">
+          <div class="product-img">
+            <img src="images/prod-alarma-garnet-panel.jpg" alt="Panel de alarma Garnet Technology" class="product-real-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+            <div class="product-img-placeholder" style="display:none"><i class="fas fa-bell"></i></div>
+            <div class="product-badge-brand">Garnet</div>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">Alarmas</span>
+            <h4>Panel de Alarma Garnet PC-200</h4>
+            <p>Panel de alarma inalámbrico/cableado, hasta 8 zonas, apto residencial y comercial, sirena integrada.</p>
+            <div class="product-footer">
+              <span class="product-price">Consultá precio</span>
+              <a href="https://wa.me/5493884845088?text=Hola!%20Me%20interesa%20el%20Panel%20de%20Alarma%20Garnet.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="product-btn"><i class="fab fa-whatsapp"></i> Consultar</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="catalog-cta fade-in">
+        <div class="catalog-cta-main">
+          <p>¿No encontraste lo que buscás? Tenemos más productos disponibles.</p>
+          <a href="https://wa.me/5493884212364?text=Hola!%20Quisiera%20consultar%20sobre%20productos%20disponibles." target="_blank" class="btn btn-primary">
+            <i class="fab fa-whatsapp"></i> Consultá por más productos
+          </a>
+        </div>
+        <div class="catalog-print-box">
+          <div class="catalog-print-icon"><i class="fas fa-file-pdf"></i></div>
+          <div class="catalog-print-text">
+            <strong>Catálogo de Presentación</strong>
+            <span>Descargá o imprimí nuestro catálogo completo en PDF — listo para compartir con clientes</span>
+          </div>
+          <a href="catalogo.html" target="_blank" class="btn btn-catalog-print">
+            <i class="fas fa-print"></i> Ver &amp; Imprimir Catálogo
+          </a>
+        </div>
+        <!-- Botón Presupuesto -->
+        <div class="catalog-print-box" style="border-color: rgba(0,200,255,0.4); background: rgba(0,200,255,0.04);">
+          <div class="catalog-print-icon" style="background: rgba(0,200,255,0.15); color: var(--cyan);"><i class="fas fa-file-invoice-dollar"></i></div>
+          <div class="catalog-print-text">
+            <strong>Generador de Presupuestos</strong>
+            <span>Creá presupuestos profesionales con PDF descargable para tus clientes en segundos</span>
+          </div>
+          <a href="presupuesto.html" target="_blank" class="btn btn-primary">
+            <i class="fas fa-file-invoice-dollar"></i> Crear Presupuesto
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== BANNER CTA ========== -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-banner-inner fade-in">
+        <div class="cta-banner-text">
+          <h2>¿Listo para proteger lo que más importa?</h2>
+          <p>Consultanos gratis hoy mismo. Te respondemos en minutos por WhatsApp.</p>
+        </div>
+        <div class="cta-banner-actions">
+          <a href="https://wa.me/5493884212364?text=Hola!%20Me%20interesa%20una%20consulta%20gratuita%20sobre%20c%C3%A1maras%20de%20seguridad." target="_blank" class="btn btn-white">
+            <i class="fab fa-whatsapp"></i> Consulta Gratuita
+          </a>
+          <a href="#catalogo" class="btn btn-outline-white">
+            <i class="fas fa-th-large"></i> Ver Catálogo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <img src="images/logo-scm-dark.png" alt="SCM Servicios Informáticos" class="footer-logo footer-logo-big footer-logo-img" />
+          <p>SCM Servicios Informáticos — Seguridad electrónica, redes, hardware y software en Palpalá, Jujuy. Técnicos certificados por Hikvision y Dahua.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/5493884212364" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="mailto:scmserviciosinformaticos01@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#marcas">Marcas</a></li>
+            <li><a href="#equipo">Equipo</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="presupuesto.html" target="_blank"><i class="fas fa-file-invoice-dollar"></i> Presupuestos</a></li>
+            <li><a href="catalogo.html" target="_blank"><i class="fas fa-book"></i> Catálogo PDF</a></li>
+            <li><a href="clientes.html"><i class="fas fa-user-circle"></i> Portal de Clientes</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#servicios">Instalación de Cámaras</a></li>
+            <li><a href="#servicios">Soporte de Redes</a></li>
+            <li><a href="#servicios">Hardware y Software</a></li>
+            <li><a href="#servicios">IA en Seguridad</a></li>
+            <li><a href="#servicios">Soporte Técnico</a></li>
+            <li><a href="#servicios">Asesoramiento</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Contacto</h4>
+          <ul>
+            <li><i class="fas fa-map-marker-alt"></i> B° Gral. Savio, Leandro Alem 263, Palpalá</li>
+            <li><i class="fas fa-phone"></i> <a href="tel:+5493884212364">3884-212364</a> — Sergio</li>
+            <li><i class="fas fa-phone"></i> <a href="tel:+5493884845088">3884-845088</a> — Misael</li>
+            <li><i class="fas fa-phone"></i> <a href="tel:+5493885191977">3885-191977</a> — Carolina</li>
+            <li><i class="fas fa-envelope"></i> scmserviciosinformaticos01@gmail.com</li>
+            <li>
+              <i class="fab fa-whatsapp"></i>
+              <a href="https://wa.me/5493884212364" target="_blank">Escribinos por WhatsApp</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 <strong>SCM Servicios Informáticos</strong> — Palpalá, Jujuy, Argentina. Todos los derechos reservados.</p>
+        <p class="footer-made">Diseñado con <i class="fas fa-heart"></i> para la comunidad de Jujuy</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón flotante WhatsApp -->
+  <a href="https://wa.me/5493884212364?text=Hola!%20Vi%20su%20página%20y%20quisiera%20consultar%20sobre%20sus%20servicios." class="whatsapp-float" target="_blank" aria-label="Contactar por WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="wa-tooltip">¡Escribinos!</span>
+  </a>
+
+  <!-- Botón scroll to top -->
+  <button class="scroll-top" id="scrollTop" aria-label="Volver arriba">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
